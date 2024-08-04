@@ -1,6 +1,9 @@
 import pandas as pd 
 import getpass
+import GUI
 
+import tkinter as tk
+from tkinter import messagebox
 
 ##################### Constants ########################
 ### Data Mangament Constants ###
@@ -52,8 +55,7 @@ def Add_ID():
     while ID_Flag:
         ID_Flag = False
         ID_Found = False
-        print("Please Enter ID")
-        InputID = int(input())
+        InputID = GUI.add_employee_frame.entry_value2.get()
         for dictionary in EmployeeList:
             if int(dictionary["ID"]) == InputID:  # cast as typr of dictionary["ID"] is str 
                 print("Please Ener another ID, as ID Chosen already exist")
@@ -74,22 +76,15 @@ def AddEmployee():
 
 # Initialize dictionary with these keys, setting all values to None
 
-    print("Please Enter Name")
-    EmployeeData["Name"] = input()
-
+    EmployeeData["Name"] = GUI.add_employee_frame.entry_value1.get()
     Add_ID()
+    EmployeeData["Depertamnet"] = GUI.add_employee_frame.entry_value2.get()
 
-    print("Please Enter Depertamnet")
-    EmployeeData["Depertamnet"] = input()
+    EmployeeData["Salary"] = GUI.add_employee_frame.entry_value3.get()
 
-    print("Please Enter salary")
-    EmployeeData["Salary"] = input()
+    EmployeeData["Password"] = GUI.add_employee_frame.entry_value4.get()
 
-    print("Please Enter Password")
-    EmployeeData["Password"] = int(getpass.getpass("Please Enter your Password Agian"))
-
-    print("Please Enter Days of Absence")    
-    EmployeeData["DOA"] = input()
+    EmployeeData["DOA"] = GUI.add_employee_frame.entry_value5.get()
 
     EmployeeList.append(EmployeeData)
     EmployeeData = {key: None for key in initial_keys}
@@ -108,15 +103,26 @@ def AddEmployee():
 def RemoveEmployee():
     global EmployeeList
     global EmployeeData
-
-    print("Please Enter ID you want to delete")
-    ID_ToDelete = int(input())
-
+    Remove_ID_Flag = False
+    ID_ToDelete = GUI.remove_employee_frame.RemoveEntery.get()
+    if not ID_ToDelete :
+            # Show error message if blank
+            messagebox.showerror("Error", "Name field cannot be empty!")
+    else:
+            # Process the data if not blank
+            messagebox.showinfo("Success", f"Employee '{ID_ToDelete}' added successfully!")
+            
+    print(ID_ToDelete)
+    print(type(ID_ToDelete))
     for i in range(len(EmployeeList)):
-        if int(EmployeeList[i]['ID']) == ID_ToDelete:
+        if int(EmployeeList[i]['ID']) == int(ID_ToDelete):
             del EmployeeList[i]
-            print("Deleted Succuesfully")
+            messagebox.showinfo("Success", f"Employee ID'{ID_ToDelete}' Removed successfully!")
+            Remove_ID_Flag = True
             break
+    if Remove_ID_Flag == False:
+         messagebox.showinfo("Failed", f"Employee ID'{ID_ToDelete}' is not found on system!")
+
     
     # printing result
     print ("List after deletion of dictionary : " +  str(EmployeeList))
@@ -127,82 +133,72 @@ def RemoveEmployee():
     pd.set_option('display.colheader_justify', 'left')
     print(df.to_string(index=False))
 
+DataManagmentCounter = 0 # counter to check if ID Is entered 3 times wrong break from loop 
 
 def Modify_Data():
-    Data_Mangament_Modfy_Flag = True
-    ModifyIndex = 0
-    Data_Mangament_Modify = 0
-    DataManagmentCounter = 0 # counter to check if ID Is entered 3 times wrong break from loop 
-    while(Data_Mangament_Modfy_Flag):
-        if (Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_IDLE):
-            print("Please Enter Your ID " )
-            try:
-              Target_ID = int(input())
-            except:
-               Target_ID = int(input("Please Enter Valid ID\n"))
+        global DataManagmentCounter
+        ModifyIndex = 0
+        Target_ID = int(GUI.modify_employee_frame.Modify_ID.get())
+        ID_Found_GDB = False
+        Auth_Succed_GDB = False
+        if not Target_ID:
+                # Show error message if blank
+                messagebox.showerror("Error", "Name field cannot be empty!")
+        
+        for i, dictionary in enumerate(EmployeeList):
+                
+                if int(dictionary["ID"]) == Target_ID:  # cast as typr of dictionary["ID"] is str 
+                  ModifyIndex  = i
+                  ID_Found_GDB = True
 
-            for i, dictionary in enumerate(EmployeeList):
-                  if int(dictionary["ID"]) == Target_ID:  # cast as typr of dictionary["ID"] is str 
-                   print(f"Found ID {ModifyIndex} at index: {i}")
-                   ModifyIndex  = i
-                   print("Enter Which data you want to modify")
-                   print("1- Name \n2- Depertament\n3- Salary\n4- Password\n5- Days of Absence\n6- Exit")    
-                   Data_Mangament_Modify = int(input())
-                   break
+        if(ID_Found_GDB == False):
+            messagebox.showerror("Failure", f"Employee ID'{Target_ID}' Not Found!")
+
+        else:
+            Old_PasswordCheck= int(GUI.modify_employee_frame.Modify_Password.get())
+
+            if (int(EmployeeList[ModifyIndex]["Password"]) == Old_PasswordCheck) and (ID_Found_GDB == True):
+                GUI.show_frame(GUI.modify_employeePage_frame)
+                Auth_Succed_GDB = True
             else:
-              print(f"ID ",Target_ID , " not found in EmployeeList")
-              Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE 
-              DataManagmentCounter +=1
-              if DataManagmentCounter == 3:
-                DataManagmentCounter =0
-                break
-            
-        elif (Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_NAME):
-            print("Enter New Name")
-            Modified_Name = input()
-            EmployeeList[ModifyIndex]["Name"] = Modified_Name
-            print(EmployeeList[ModifyIndex])   
-            Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE 
-            
-        elif(Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_DEP):
-            print("Enter New Depertament")
-            Modified_Dep = input()
-            EmployeeList[ModifyIndex]["Depertament"] = Modified_Dep
-            print(EmployeeList[ModifyIndex])   
-            Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE 
-        
-        elif(Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_SALARY):
-            print("Enter New Salary")
-            Modified_Salary= input()
-            EmployeeList[ModifyIndex]["Salary"] = Modified_Salary
-            print(EmployeeList[ModifyIndex])    
-            Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE 
-        
-        elif(Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_PASSWORD):
-            Old_PasswordCheck= int(getpass.getpass("Enter old password"))
-            if int(EmployeeList[ModifyIndex]["Password"]) == Old_PasswordCheck:
-               New_Password= int(getpass.getpass("Enter New password"))
-               EmployeeList[ModifyIndex]["Password"] = New_Password
-               print(EmployeeList[ModifyIndex])   
-            else:
-                print("Wrong password")
+                DataManagmentCounter +=1
+                messagebox.showinfo("Failed", f"Wrong Password")
+                if DataManagmentCounter == 3:
+                    print("I Entered")
+                    GUI.show_frame(GUI.data_managamentframe)
+                    DataManagmentCounter =0
+                messagebox.showinfo("Failed", f"Wrong Password")
 
-            Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE 
-        
-        elif(Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_DOA):
-            print("Enter New Days of Abesence")
-            Modified_DOA= input()
-            EmployeeList[ModifyIndex]["DOA"] = Modified_DOA
-            print(EmployeeList[ModifyIndex])    
-            Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE 
-        
-        elif(Data_Mangament_Modify == DATA_MANAGAMNET_MODIFY_EXIT):
-            Data_Mangament_Modfy_Flag = False             
+                        
+        if(Auth_Succed_GDB == True):
+            Modified_Name= GUI.modify_employeePage_frame.Modify_Name.get()
+            New_Password= GUI.modify_employeePage_frame.Modify_Password.get()
+            Modified_Salary = GUI.modify_employeePage_frame.Modify_Salary.get()
+            Modified_Dep = GUI.modify_employeePage_frame.Modify_DEP.get()
+            Modified_DOA = GUI.modify_employeePage_frame.Modify_DOA.get()
 
-        else: 
-            Data_Mangament_Modify = DATA_MANAGAMNET_MODIFY_IDLE
-            print("Wrong Choice Please Enter Agian") 
+            if  Modified_Name:
+                EmployeeList[ModifyIndex]["Name"] = Modified_Name
 
+            if  New_Password:
+                EmployeeList[ModifyIndex]["Password"] = New_Password           
+                
+            if  Modified_Dep:
+                EmployeeList[ModifyIndex]["Depertament"] = Modified_Dep
+
+            if Modified_Salary:
+                EmployeeList[ModifyIndex]["Salary"] = Modified_Salary
+
+            if Modified_DOA:
+                EmployeeList[ModifyIndex]["DOA"] = Modified_DOA
+                
+            #Convert list of dictionaries to DataFrame
+            df = pd.DataFrame(EmployeeList)
+
+            # Print DataFrame as table
+            # Print DataFrame as table with left alignment 
+            pd.set_option('display.colheader_justify', 'left')
+            print(df.to_string(index=False))
 
 
 def DataManagment_Handler():

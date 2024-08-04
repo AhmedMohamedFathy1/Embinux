@@ -1,29 +1,20 @@
 #!/usr/bin/python3
-
 import tkinter as tk
 from tkinter import messagebox
+from operations import AddEmployee,RemoveEmployee,Modify_Data
 
 # Function to update dictionary with data from entry fields
-def update_dictionary():
+""" def update_dictionary():
     # Collect data from entry fields'
-    key = ["Name","ID","Depertamnet","Salary","Password","DOA"]
-    value = [0,0,0,0,0,0]
+    op.EmployeeData["Name"] = add_employee_frame.entry_value1.get()
+    op.EmployeeData["ID"] =  add_employee_frame.entry_value2.get()
+    op.EmployeeData["Depertamnet"] = add_employee_frame.entry_value3.get()
+    op.EmployeeData["Salary"] = add_employee_frame.entry_value4.get()
+    op.EmployeeData["Password"] = add_employee_frame.entry_value5.get()
+    op.EmployeeData["DOA"] = add_employee_frame.entry_value6.get()
 
-    value[0] = entry_value1.get()
-    value[1] = entry_value2.get()
-    value[2] = entry_value3.get()
-    value[3] = entry_value4.get()
-    value[4] = entry_value5.get()
-    value[5] = entry_value6.get()
-    
-    # Check if all entries are filled
-    for  ValueIndex in value:
-        i=0
-        data_dict[i] = ValueIndex
-        i+=1
-        # Display updated dictionary
-        print(data_dict)
-    
+    op.AddEmployee()
+    add_emp_t.Clear_Txt() """
 
 # Initial dictionary
 data_dict = {}
@@ -32,68 +23,257 @@ data_dict = {}
 root = tk.Tk()
 root.title("Data Entry")
 # Set geometry(width height)
-root.geometry('350x400')
+root.geometry('450x500')
 
+initial_font = ('Arial', 16)
+tk.Label(root, text="Embinux!", font=initial_font).grid(row=0, column=0, padx=0, pady=0, sticky="nsew")
+
+# Create a container for all frames
+container = tk.Frame(root)
+container.grid(row=0, column=0, sticky="nsew")
+
+# Set column and row weight for the container to expand properly
+container.grid_rowconfigure(0, weight=1)
+container.grid_columnconfigure(0, weight=1)
+
+# Dictionary to hold the frames
+frames = {}
+
+# Frame classes
+class MainMenuFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Employee Management System", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Button(self, text="Sign In", command=lambda: show_frame(add_employee_frame)).grid(row=1, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Data Managamnet", command=lambda: show_frame(data_managamentframe)).grid(row=2, column=0, pady=10, sticky="ew")
+
+
+# Frame classes
+class DataMangamentFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Employee Management System", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Button(self, text="Add Employee", command=lambda: show_frame(add_employee_frame)).grid(row=1, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Remove Employee", command=lambda: show_frame(remove_employee_frame)).grid(row=2, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Modify Employee Data", command=lambda: show_frame(modify_employee_frame)).grid(row=3, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+
+class AddEmployeeFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Add Employee", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Label(self, text="Name:").grid(row=1, column=0, sticky="e")
+        self.entry_value1 = tk.Entry(self)
+        self.entry_value1 .grid(row=1, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="ID:").grid(row=2, column=0, sticky="e")
+        self.entry_value2 = tk.Entry(self)
+        self.entry_value2 .grid(row=2, column=1, pady=5, sticky="ew")
+        # Department Data Entry
+        tk.Label(self, text="Department:").grid(row=3, column=0, pady=5, sticky="e")
+        self.entry_value3 = tk.Entry(self)
+        self.entry_value3 .grid(row=3, column=1, pady=5, sticky="ew")
+       
+
+        # Salary Data Entry
+        tk.Label(self, text="Salary:").grid(row=4, column=0, pady=5, sticky="e")
+        self.entry_value4 = tk.Entry(self)
+        self.entry_value4 .grid(row=4, column=1, pady=5, sticky="ew")
+
+        # Password Data Entry
+        tk.Label(self, text="Password:").grid(row=5, column=0, pady=5, sticky="e")
+        self.entry_value5 = tk.Entry(self, show="*")
+        self.entry_value5 .grid(row=5, column=1, pady=5, sticky="ew")
+
+        # Days of Absence Data Entry
+        tk.Label(self, text="Days of Absence:").grid(row=6, column=0, pady=5, sticky="e")
+        self.entry_value6 = tk.Entry(self)
+        self.entry_value6 .grid(row=6, column=1, pady=5, sticky="ew")
+       
+
+        tk.Button(self, text="Submit", command=AddEmployee).grid(row=7, column=0, columnspan=2, pady=20)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(data_managamentframe)).grid(row=8, column=0, columnspan=2)
+
+    def Clear_Txt(self):
+        print("I entered")
+        self.entry_value1.delete(0,tk.END)
+        self.entry_value2.delete(0,tk.END)
+        self.entry_value3.delete(0,tk.END)
+        self.entry_value4.delete(0,tk.END)
+        self.entry_value5.delete(0,tk.END)
+        self.entry_value6.delete(0,tk.END)
+
+class RemoveEmployeeFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Remove Employee", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Label(self, text="Please Enter ID you want to Remove", font=('Arial', 16)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Label(self, text="Employee ID:").grid(row=1, column=0, sticky="e")
+        self.RemoveEntery = tk.Entry(self)
+        self.RemoveEntery.grid(row=1, column=1, pady=5, sticky="ew")
+
+        tk.Button(self, text="Remove", command=RemoveEmployee).grid(row=2, column=0, columnspan=2, pady=20)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=3, column=0, columnspan=2)
+
+
+class ModifyEmployeeFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Please Enter ID", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Label(self, text="Employee ID:").grid(row=1, column=0, sticky="e")
+        self.Modify_ID = tk.Entry(self)
+        self.Modify_ID.grid(row=1, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="Employee Password:").grid(row=2, column=0, sticky="e")
+        self.Modify_Password = tk.Entry(self)
+        self.Modify_Password.grid(row=2, column=1, pady=5, sticky="ew")
+
+
+        tk.Button(self, text="Search",command=Modify_Data).grid(row=3, column=0, columnspan=2, pady=20)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, columnspan=2)
+
+
+class ModifyEmployeePageFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Modify Page", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Label(self, text="Employee Name:").grid(row=1, column=0, sticky="e")
+        self.Modify_Name = tk.Entry(self)
+        self.Modify_Name.grid(row=1, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="Employee Password:").grid(row=2, column=0, sticky="e")
+        self.Modify_Password = tk.Entry(self)
+        self.Modify_Password.grid(row=2, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="Employee Salary:").grid(row=3, column=0, sticky="e")
+        self.Modify_Salary = tk.Entry(self)
+        self.Modify_Salary.grid(row=3, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="Employee Departament:").grid(row=4, column=0, sticky="e")
+        self.Modify_DEP= tk.Entry(self)
+        self.Modify_DEP.grid(row=4, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="Employee Days of Absence:").grid(row=5, column=0, sticky="e")
+        self.Modify_DOA= tk.Entry(self)
+        self.Modify_DOA.grid(row=5, column=1, pady=5, sticky="ew")
+
+
+        tk.Button(self, text="Modify",command=Modify_Data).grid(row=6, column=0, columnspan=2, pady=20)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=7, column=0, columnspan=2)
+
+
+
+# Create frames for different operations
+for F in (MainMenuFrame, AddEmployeeFrame, RemoveEmployeeFrame, ModifyEmployeeFrame):
+    frame = F(container, root)
+    frames[F] = frame
+    frame.grid(row=0, column=0, sticky="nsew")
+
+# Functions for each operation
+def show_frame(frame_class):
+    # Hide all frames
+    for frame in frames.values():
+        frame.grid_forget()
+    
+    # Show the selected frame
+    frame_class.grid(row=0, column=0, sticky="nsew")
+
+
+# Create instances of frames for different operations
+main_menu_frame = MainMenuFrame(container, root)
+data_managamentframe = DataMangamentFrame(container, root)
+add_employee_frame = AddEmployeeFrame(container, root)
+remove_employee_frame = RemoveEmployeeFrame(container, root)
+modify_employee_frame = ModifyEmployeeFrame(container, root)
+modify_employeePage_frame = ModifyEmployeePageFrame(container, root)
+
+# Add frames to the dictionary
+frames[main_menu_frame] = main_menu_frame
+frames[data_managamentframe] = data_managamentframe
+
+frames[add_employee_frame] = add_employee_frame
+frames[remove_employee_frame] = remove_employee_frame
+frames[modify_employee_frame] = modify_employee_frame
+frames[modify_employeePage_frame] = modify_employeePage_frame
+
+add_emp_t = AddEmployeeFrame(root,None)
+
+# Show the main menu frame at the start
+show_frame(main_menu_frame)
+
+""" # Function to show the selected frame
+def show_frame(frame):
+    # Hide all frames
+    frame1.grid_remove()
+    frame2.grid_remove()
+    
+    # Show the selected frame
+    frame.grid() """
+
+
+""" # Create frames for different screens
+frame1 = tk.Frame(root)
+frame1.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+
+frame2 = tk.Frame(root)
+frame2.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+
+# Buttons to navigate between frames
+button1 = tk.Button(frame1, text="Sign in", command=lambda: show_frame(frame2))
+button1.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+
+button2 = tk.Button(frame1, text="Data Management", command=lambda: show_frame(frame1))
+button2.grid(row=1, column=0, padx=5, pady=5, sticky="w")
+
+ """
+
+""" # Start with frame1 visible
+show_frame(frame1)
+
+
+################ Frame 3 Add Employee  ######################
 # Create entry fields for multiple key-value pairs
-#Name Data Entery
-tk.Label(root, text="Name").grid(row=0, column=0, padx=10, pady=5)
-entry_key1 = tk.Label(root)
-entry_key1.grid(row=0, column=1, padx=10, pady=5)
+# Name Data Entry
+tk.Label(frame2, text="Name").grid(row=1, column=0, padx=10, pady=5)
+entry_value1 = tk.Entry(frame2)
+entry_value1.grid(row=1, column=1, padx=10, pady=5)
 
-tk.Label(root).grid(row=0, column=0, padx=10, pady=5)
-entry_value1 = tk.Entry(root)
-entry_value1.grid(row=0, column=1, padx=10, pady=5)
+# ID Data Entry
+tk.Label(frame2, text="ID:").grid(row=2, column=0, padx=10, pady=5)
+entry_value2 = tk.Entry(frame2)
+entry_value2.grid(row=2, column=1, padx=10, pady=5)
 
+# Department Data Entry
+tk.Label(frame2, text="Department:").grid(row=3, column=0, padx=10, pady=5)
+entry_value3 = tk.Entry(frame2)
+entry_value3.grid(row=3, column=1, padx=10, pady=5)
 
-#ID Data Entery
-tk.Label(root, text="ID:").grid(row=1, column=0, padx=10, pady=5)
-entry_key2 = tk.Label(root)
-entry_key2.grid(row=1, column=1, padx=10, pady=5)
+# Salary Data Entry
+tk.Label(frame2, text="Salary:").grid(row=4, column=0, padx=10, pady=5)
+entry_value4 = tk.Entry(frame2)
+entry_value4.grid(row=4, column=1, padx=10, pady=5)
 
-tk.Label(root).grid(row=1, column=0, padx=10, pady=5)
-entry_value2 = tk.Entry(root)
-entry_value2.grid(row=1, column=1, padx=10, pady=5)
+# Password Data Entry
+tk.Label(frame2, text="Password:").grid(row=5, column=0, padx=10, pady=5)
+entry_value5 = tk.Entry(frame2, show="*")
+entry_value5.grid(row=5, column=1, padx=10, pady=5)
 
-#Department Data Entery
-tk.Label(root, text="Department:").grid(row=2, column=0, padx=10, pady=5)
-entry_key3 = tk.Label(root)
-entry_key3.grid(row=2, column=1, padx=10, pady=5)
-
-tk.Label(root).grid(row=2, column=0, padx=10, pady=5)
-entry_value3 = tk.Entry(root)
-entry_value3.grid(row=2, column=1, padx=10, pady=5)
-
-#Salary Data Entery
-tk.Label(root, text="Salary:").grid(row=3, column=0, padx=10, pady=5)
-entry_key4 = tk.Label(root)
-entry_key4.grid(row=3, column=1, padx=10, pady=5)
-
-tk.Label(root).grid(row=3, column=0, padx=10, pady=5)
-entry_value4 = tk.Entry(root)
-entry_value4.grid(row=3, column=1, padx=10, pady=5)
-
-#Password Data Entery
-tk.Label(root, text="Password:").grid(row=4, column=0, padx=10, pady=5)
-entry_key5 = tk.Label(root)
-entry_key5.grid(row=4, column=1, padx=10, pady=5)
-
-tk.Label(root).grid(row=4, column=0, padx=10, pady=5)
-entry_value5 = tk.Entry(root)
-entry_value5.grid(row=4, column=1, padx=10, pady=5)
-
-#Days of Absence Data Entery
-tk.Label(root, text="Days of Absence:").grid(row=5, column=0, padx=10, pady=5)
-entry_key6 = tk.Label(root)
-entry_key6.grid(row=5, column=1, padx=10, pady=5)
-
-tk.Label(root).grid(row=5, column=0, padx=10, pady=5)
-entry_value6 = tk.Entry(root)
-entry_value6.grid(row=5,column=1, padx=10, pady=5)
-
+# Days of Absence Data Entry
+tk.Label(frame2, text="Days of Absence:").grid(row=6, column=0, padx=10, pady=5)
+entry_value6 = tk.Entry(frame2)
+entry_value6.grid(row=6, column=1, padx=10, pady=5)
 
 # Button to update the dictionary with data from entry fields
-update_button = tk.Button(root, text="Update Dictionary", command=update_dictionary)
-update_button.grid(row=7, columnspan=2, pady=10)
+update_button = tk.Button(frame2, text="Update Dictionary", command=update_dictionary)
+update_button.grid(row=7, column=0, columnspan=2, pady=10, sticky="nsew")
+ """
 
 # Start the GUI event loop
 root.mainloop()
