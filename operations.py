@@ -244,14 +244,20 @@ def Employee_DataDisplay():
 def Employee_ShowBonus():
      print("Bonus:",(float(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.1))
      Bonus = (float(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.1)
-     return Bonus
+     Formatted_Bonus_LF = f"{Bonus:.4f}"
+
+     GUI.SignInDisplayBonus_frame.BonusLabel.config(text=Formatted_Bonus_LF)
 
 def Employee_ShowDiscount():
      print("Discount:",(int(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.05))
-     return ((EmployeeList[Targeted_Index[0]]["Salary"]) * 0.05)
+     Discount = (float(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.05)
+     Formatted_Discount_LF = f"{Discount:.4f}"
+     
+     GUI.SignInDisplayDiscount_frame.DiscountLabel.config(text=Formatted_Discount_LF)
+
 def Employee_ShowDOA():
      print("Days of Absence: ",EmployeeList[Targeted_Index[0]]["DOA"])
-     return EmployeeList[Targeted_Index[0]]["DOA"]
+     GUI.SignInDisplayDOA_frame.DOALabel.config(text= EmployeeList[Targeted_Index[0]]["DOA"])
 
 
 def Employee_SignIn_Handler():

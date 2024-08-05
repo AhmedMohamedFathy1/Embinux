@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import tkinter as tk
-from tkinter import messagebox
-from operations import AddEmployee,RemoveEmployee,Modify_Data,Employee_DataDisplay,Employee_ShowDOA,Employee_ShowBonus,Employee_ShowDOA
+from operations import AddEmployee,RemoveEmployee,Modify_Data,Employee_DataDisplay,Employee_ShowDiscount,Employee_ShowBonus,Employee_ShowDOA
 from tkinter import font
 
 from authentication import Authentication_Check
@@ -126,7 +125,7 @@ class RemoveEmployeeFrame(tk.Frame):
         self.RemoveEntery.grid(row=1, column=1, pady=5, sticky="ew")
 
         tk.Button(self, text="Remove", command=RemoveEmployee).grid(row=2, column=0, columnspan=2, pady=20)
-        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=3, column=0, columnspan=2)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(data_managamentframe)).grid(row=3, column=0, columnspan=2)
 
 
 class ModifyEmployeeFrame(tk.Frame):
@@ -144,7 +143,7 @@ class ModifyEmployeeFrame(tk.Frame):
 
 
         tk.Button(self, text="Search",command=Modify_Data).grid(row=3, column=0, columnspan=2, pady=20)
-        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, columnspan=2)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(data_managamentframe)).grid(row=4, column=0, columnspan=2)
 
 
 class ModifyEmployeePageFrame(tk.Frame):
@@ -193,71 +192,102 @@ class SignInPageAuthFrame(tk.Frame):
 
 
         tk.Button(self, text="sign in",command=Authentication_Check).grid(row=3, column=0, columnspan=2, pady=20)
-        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, columnspan=2)
-
+        tk.Button(self, text="Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, columnspan=2)
 
 class SignInPageFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-
         tk.Label(self, text="Sign In", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
 
-        tk.Button(self, text="Display Data", command=lambda: show_frame(SignInDisplay_frame)).grid(row=1, column=0, pady=10, sticky="ew")
-        tk.Button(self, text="Bonus", command=lambda: show_frame(SignInDisplayBonus_frame)).grid(row=2, column=0, pady=10, sticky="ew")
-        tk.Button(self, text="Discount", command=lambda: show_frame(SignInDisplayDiscount_frame)).grid(row=3, column=0, pady=10, sticky="ew")
-        tk.Button(self, text="Days of Absence", command=lambda: show_frame(SignInDisplayDOA_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Display Data", command=self.Display_CombinedFunction).grid(row=1, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Bonus", command=self.Bonus_CombinedFunction).grid(row=2, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Discount", command=self.Discount_CombinedFunction).grid(row=3, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Days of Absence", command=self.DOA_CombinedFunction).grid(row=4, column=0, pady=10, sticky="ew")
 
-        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=5, column=0, pady=10, sticky="ew")
 
+    def Display_CombinedFunction(self):
+        Employee_DataDisplay()
+        show_frame(SignInDisplay_frame)
+
+    def Bonus_CombinedFunction(self):
+        Employee_ShowBonus()
+        show_frame(SignInDisplayBonus_frame)
+
+    def Discount_CombinedFunction(self):
+        Employee_ShowDiscount()
+        show_frame(SignInDisplayDiscount_frame)
+
+    def DOA_CombinedFunction(self):
+        Employee_ShowDOA()
+        show_frame(SignInDisplayDOA_frame)
+
+
+        
 class SignInPage_DataDisplayFrame(tk.Frame):
     def __init__(self, parent, controller):
         self.DataDisplayList= []
 
         tk.Frame.__init__(self, parent)
-        tk.Label(self, text="Employee Data", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+        tk.Label(self, text="Employee Data", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)     
+
+        tk.Label(self, text="Employee Name:").grid(row=1, column=0, pady=10,sticky="w")
+        self.DisplayName_Label =  tk.Label(self, text="Employee Bonus")
+        self.DisplayName_Label.grid(row=1, column=1, padx=10,pady=10,sticky="w")
+
+        tk.Label(self, text="Employee Password:").grid(row=2, column=0,pady=10, sticky="w")
+        self.DisplayPassword_Label =  tk.Label(self, text="Employee Password")
+        self.DisplayPassword_Label.grid(row=2, column=1, padx=5,pady=10,sticky="w")
+
+        tk.Label(self, text="Employee Salary:").grid(row=3, column=0, pady=10,sticky="w")
+        self.DisplaySalary_Label =  tk.Label(self, text="Employee Salary")
+        self.DisplaySalary_Label.grid(row=3, column=1, padx=5,pady=10,sticky="w")
 
         
-        tk.Label(self, text="Employee Name:").grid(row=1, column=0, sticky="e")
-        self.DataDisplayList = Employee_DataDisplay()
-        print(self.DataDisplayList)
-        #tk.Label(self, text=DataDisp).grid(row=1, column=0, sticky="e")
+        tk.Label(self, text="Employee Departament:").grid(row=4, column=0, pady=10,sticky="w")
+        self.DisplayDepartament_Label =  tk.Label(self, text="Employee Departament")
+        self.DisplayDepartament_Label.grid(row=4, column=1, padx=5,pady=10,sticky="w")
+        
+        tk.Label(self, text="Employee Days of Absence:").grid(row=5, column=0, pady=10,sticky="w")
+        self.DisplayDOA_Label =  tk.Label(self, text="Employee Days of Absence")
+        self.DisplayDOA_Label.grid(row=5, column=1, padx=5,pady=10,sticky="w")
 
-
-        tk.Label(self, text="Employee Password:").grid(row=2, column=0, sticky="e")
-
-
-        tk.Label(self, text="Employee Salary:").grid(row=3, column=0, sticky="e")
-
-        tk.Label(self, text="Employee Departament:").grid(row=4, column=0, sticky="e")
-
-        tk.Label(self, text="Employee Days of Absence:").grid(row=5, column=0, sticky="e")
-
-
-        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=6, column=0, pady=10, sticky="ew")
 
 class SignInPage_DataDisplayBonusFrame(tk.Frame):
     def __init__(self, parent, controller):
            tk.Frame.__init__(self, parent)
+           tk.Label(self, text="Employee Bonus:", font=('Arial', 15)).grid(row=0, column=0, columnspan=2, pady=20)     
+           
+           self.BonusLabel =  tk.Label(self, text="EmployeeBonus", font=('Arial', 15))
+           self.BonusLabel.grid(row=0, column=2, padx=5,sticky="e")
 
-           tk.Label(self, text="Employee Bonus:").grid(row=1, column=0, sticky="e")
-           self.EmployeeBonus = Employee_ShowBonus()
-           tk.Label(self, text=self.EmployeeBonus).grid(row=2, column=0, sticky="e")
            tk.Button(self, text="Back to Menu", command=lambda: show_frame(SignIn_frame)).grid(row=7, column=0, columnspan=2)
- 
+    
 class SignInPage_DataDisplayDsicountFrame(tk.Frame):
     def __init__(self, parent, controller):        
            tk.Frame.__init__(self, parent)
            
-           tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+           tk.Label(self, text="Employee Discount:",font=('Arial', 15)).grid(row=0, column=0, columnspan=2, pady=20)
+           
+           self.DiscountLabel =  tk.Label(self, text="EmployeeDiscount",font=('Arial', 15))
+           self.DiscountLabel.grid(row=0, column=2, padx=5,sticky="e")
+           
+           tk.Button(self, text="Back to Menu", command=lambda: show_frame(SignIn_frame)).grid(row=7, column=0, columnspan=2)
+    
 
 class SignInPage_DataDisplayDOAFrame(tk.Frame):
     def __init__(self, parent, controller):
            tk.Frame.__init__(self, parent)
-           tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+           tk.Label(self, text="Employee Days of Absennce:",font=('Arial', 15)).grid(row=0, column=0, columnspan=2, pady=20)
+
+           self.DOALabel =  tk.Label(self, text="EmployeeDOA",font=('Arial', 15))
+           self.DOALabel.grid(row=0, column=3, padx=5,sticky="e")
+           
+           tk.Button(self, text="Back to menu", command=lambda: show_frame(SignIn_frame)).grid(row=1, column=1, padx=10, pady=10, sticky="ew")
 
 # Create frames for different operations
-for F in (MainMenuFrame, AddEmployeeFrame, RemoveEmployeeFrame, ModifyEmployeeFrame,ModifyEmployeePageFrame,SignInPageFrame,
-          SignInPage_DataDisplayFrame,SignInPage_DataDisplayDsicountFrame,SignInPage_DataDisplayDsicountFrame,SignInPage_DataDisplayDOAFrame):
+for F in (MainMenuFrame, AddEmployeeFrame, DataMangamentFrame,RemoveEmployeeFrame, ModifyEmployeeFrame,ModifyEmployeePageFrame, SignInPageFrame,SignInPageAuthFrame,SignInPage_DataDisplayFrame,SignInPage_DataDisplayDsicountFrame,SignInPage_DataDisplayBonusFrame,SignInPage_DataDisplayDOAFrame):
     frame = F(container, root)
     frames[F] = frame
     frame.grid(row=0, column=0, sticky="nsew")
@@ -270,6 +300,7 @@ def show_frame(frame_class):
     
     # Show the selected frame
     frame_class.grid(row=0, column=0, sticky="nsew")
+
 
 
 # Create instances of frames for different operations
@@ -299,7 +330,12 @@ frames[remove_employee_frame] = remove_employee_frame
 frames[modify_employee_frame] = modify_employee_frame
 frames[modify_employeePage_frame] = modify_employeePage_frame
 
-
+frames[SignIn_auth] = SignIn_auth
+frames[SignIn_frame] = SignIn_frame
+frames[SignInDisplay_frame] = SignInDisplay_frame
+frames[SignInDisplayBonus_frame] = SignInDisplayBonus_frame
+frames[SignInDisplayDiscount_frame] = SignInDisplayDiscount_frame
+frames[SignInDisplayDOA_frame] = SignInDisplayDOA_frame
 
 add_emp_t = AddEmployeeFrame(root,None)
 
