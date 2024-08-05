@@ -231,25 +231,25 @@ class SignInPage_DataDisplayFrame(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Label(self, text="Employee Data", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)     
 
-        tk.Label(self, text="Employee Name:").grid(row=1, column=0, pady=10,sticky="w")
-        self.DisplayName_Label =  tk.Label(self, text="Employee Bonus")
+        tk.Label(self, text="Employee Name:", font=('Arial', 12)).grid(row=1, column=0, pady=10,sticky="w")
+        self.DisplayName_Label =  tk.Label(self, text="Employee Bonus", font=('Arial', 12))
         self.DisplayName_Label.grid(row=1, column=1, padx=10,pady=10,sticky="w")
 
-        tk.Label(self, text="Employee Password:").grid(row=2, column=0,pady=10, sticky="w")
-        self.DisplayPassword_Label =  tk.Label(self, text="Employee Password")
+        tk.Label(self, text="Employee Password:", font=('Arial', 12)).grid(row=2, column=0,pady=10, sticky="w")
+        self.DisplayPassword_Label =  tk.Label(self, text="Employee Password", font=('Arial', 12))
         self.DisplayPassword_Label.grid(row=2, column=1, padx=5,pady=10,sticky="w")
 
-        tk.Label(self, text="Employee Salary:").grid(row=3, column=0, pady=10,sticky="w")
-        self.DisplaySalary_Label =  tk.Label(self, text="Employee Salary")
+        tk.Label(self, text="Employee Salary:", font=('Arial', 12)).grid(row=3, column=0, pady=10,sticky="w")
+        self.DisplaySalary_Label =  tk.Label(self, text="Employee Salary", font=('Arial', 12))
         self.DisplaySalary_Label.grid(row=3, column=1, padx=5,pady=10,sticky="w")
 
         
-        tk.Label(self, text="Employee Departament:").grid(row=4, column=0, pady=10,sticky="w")
-        self.DisplayDepartament_Label =  tk.Label(self, text="Employee Departament")
+        tk.Label(self, text="Employee Departament:", font=('Arial', 12)).grid(row=4, column=0, pady=10,sticky="w")
+        self.DisplayDepartament_Label =  tk.Label(self, text="Employee Departament", font=('Arial', 12))
         self.DisplayDepartament_Label.grid(row=4, column=1, padx=5,pady=10,sticky="w")
         
-        tk.Label(self, text="Employee Days of Absence:").grid(row=5, column=0, pady=10,sticky="w")
-        self.DisplayDOA_Label =  tk.Label(self, text="Employee Days of Absence")
+        tk.Label(self, text="Employee Days of Absence:", font=('Arial', 12)).grid(row=5, column=0, pady=10,sticky="w")
+        self.DisplayDOA_Label =  tk.Label(self, text="Employee Days of Absence", font=('Arial', 12))
         self.DisplayDOA_Label.grid(row=5, column=1, padx=5,pady=10,sticky="w")
 
         tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=6, column=0, pady=10, sticky="ew")

@@ -78,13 +78,13 @@ def AddEmployee():
 
     EmployeeData["Name"] = GUI.add_employee_frame.entry_value1.get()
     Add_ID()
-    EmployeeData["Depertamnet"] = GUI.add_employee_frame.entry_value2.get()
+    EmployeeData["Depertamnet"] = GUI.add_employee_frame.entry_value3.get()
 
-    EmployeeData["Salary"] = GUI.add_employee_frame.entry_value3.get()
+    EmployeeData["Salary"] = GUI.add_employee_frame.entry_value4.get()
 
-    EmployeeData["Password"] = GUI.add_employee_frame.entry_value4.get()
+    EmployeeData["Password"] = GUI.add_employee_frame.entry_value5.get()
 
-    EmployeeData["DOA"] = GUI.add_employee_frame.entry_value5.get()
+    EmployeeData["DOA"] = GUI.add_employee_frame.entry_value6.get()
 
     EmployeeList.append(EmployeeData)
     EmployeeData = {key: None for key in initial_keys}
@@ -108,10 +108,7 @@ def RemoveEmployee():
     if not ID_ToDelete :
             # Show error message if blank
             messagebox.showerror("Error", "Name field cannot be empty!")
-    else:
-            # Process the data if not blank
-            messagebox.showinfo("Success", f"Employee '{ID_ToDelete}' added successfully!")
-            
+
     print(ID_ToDelete)
     print(type(ID_ToDelete))
     for i in range(len(EmployeeList)):
@@ -235,11 +232,17 @@ def DataManagment_Handler():
 
 
 def Employee_DataDisplay():
-    print("Employee Data:")
-    print("Targeted_Index" ,Targeted_Index[0])
     print(EmployeeList[Targeted_Index[0]])   
 
-    return EmployeeList[Targeted_Index[0]]
+    GUI.SignInDisplay_frame.DisplayName_Label.config(text=EmployeeList[Targeted_Index[0]]["Name"])
+    
+    GUI.SignInDisplay_frame.DisplayPassword_Label.config(text=EmployeeList[Targeted_Index[0]]["Password"])
+
+    GUI.SignInDisplay_frame.DisplayDepartament_Label.config(text=EmployeeList[Targeted_Index[0]]["Depertamnet"])
+
+    GUI.SignInDisplay_frame.DisplaySalary_Label.config(text=EmployeeList[Targeted_Index[0]]["Salary"])
+
+    GUI.SignInDisplay_frame.DisplayDOA_Label.config(text=EmployeeList[Targeted_Index[0]]["DOA"])
 
 def Employee_ShowBonus():
      print("Bonus:",(float(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.1))
