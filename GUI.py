@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 import tkinter as tk
 from tkinter import messagebox
-from operations import AddEmployee,RemoveEmployee,Modify_Data
+from operations import AddEmployee,RemoveEmployee,Modify_Data,Employee_DataDisplay,Employee_ShowDOA,Employee_ShowBonus,Employee_ShowDOA
+from tkinter import font
+
+from authentication import Authentication_Check
 
 # Function to update dictionary with data from entry fields
 """ def update_dictionary():
@@ -18,7 +21,7 @@ from operations import AddEmployee,RemoveEmployee,Modify_Data
 
 # Initial dictionary
 data_dict = {}
-
+Authentication_Flag = [-1]  # used to store auth falg in auth module 
 # Setting up the GUI
 root = tk.Tk()
 root.title("Data Entry")
@@ -43,10 +46,15 @@ frames = {}
 class MainMenuFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        tk.Label(self, text="Employee Management System", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+        # Create a font with underline
+        underlined_font = font.Font(family="Arial", size=20, underline=True)
+        
+        # Create a Label with the underlined font
+        tk.Label(self, text="Employee Management System", font=underlined_font).grid(row=0, column=1, columnspan=3, pady=15)
+       # tk.Label(self, text="Employee Management System", font=('Arial', 20)).grid(row=0, column=1, columnspan=3, pady=15,underline=True)
 
-        tk.Button(self, text="Sign In", command=lambda: show_frame(add_employee_frame)).grid(row=1, column=0, pady=10, sticky="ew")
-        tk.Button(self, text="Data Managamnet", command=lambda: show_frame(data_managamentframe)).grid(row=2, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Sign In", command=lambda: show_frame(SignIn_auth)).grid(row=1, column=1, padx = 10 ,pady=10, sticky="ew")
+        tk.Button(self, text="Data Managamnet", command=lambda: show_frame(data_managamentframe)).grid(row=2, column=1,padx = 10, pady=10, sticky="ew")
 
 
 # Frame classes
@@ -169,9 +177,87 @@ class ModifyEmployeePageFrame(tk.Frame):
         tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=7, column=0, columnspan=2)
 
 
+################################ sign in Classes ################################
+class SignInPageAuthFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Please Enter ID", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Label(self, text="Employee ID:").grid(row=1, column=0, sticky="e")
+        self.Auth_ID = tk.Entry(self)
+        self.Auth_ID.grid(row=1, column=1, pady=5, sticky="ew")
+
+        tk.Label(self, text="Employee Password:").grid(row=2, column=0, sticky="e")
+        self.Auth_Password = tk.Entry(self)
+        self.Auth_Password.grid(row=2, column=1, pady=5, sticky="ew")
+
+
+        tk.Button(self, text="sign in",command=Authentication_Check).grid(row=3, column=0, columnspan=2, pady=20)
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, columnspan=2)
+
+
+class SignInPageFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        tk.Label(self, text="Sign In", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        tk.Button(self, text="Display Data", command=lambda: show_frame(SignInDisplay_frame)).grid(row=1, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Bonus", command=lambda: show_frame(SignInDisplayBonus_frame)).grid(row=2, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Discount", command=lambda: show_frame(SignInDisplayDiscount_frame)).grid(row=3, column=0, pady=10, sticky="ew")
+        tk.Button(self, text="Days of Absence", command=lambda: show_frame(SignInDisplayDOA_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(main_menu_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+
+class SignInPage_DataDisplayFrame(tk.Frame):
+    def __init__(self, parent, controller):
+        self.DataDisplayList= []
+
+        tk.Frame.__init__(self, parent)
+        tk.Label(self, text="Employee Data", font=('Arial', 20)).grid(row=0, column=0, columnspan=2, pady=20)
+
+        
+        tk.Label(self, text="Employee Name:").grid(row=1, column=0, sticky="e")
+        self.DataDisplayList = Employee_DataDisplay()
+        print(self.DataDisplayList)
+        #tk.Label(self, text=DataDisp).grid(row=1, column=0, sticky="e")
+
+
+        tk.Label(self, text="Employee Password:").grid(row=2, column=0, sticky="e")
+
+
+        tk.Label(self, text="Employee Salary:").grid(row=3, column=0, sticky="e")
+
+        tk.Label(self, text="Employee Departament:").grid(row=4, column=0, sticky="e")
+
+        tk.Label(self, text="Employee Days of Absence:").grid(row=5, column=0, sticky="e")
+
+
+        tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+
+class SignInPage_DataDisplayBonusFrame(tk.Frame):
+    def __init__(self, parent, controller):
+           tk.Frame.__init__(self, parent)
+
+           tk.Label(self, text="Employee Bonus:").grid(row=1, column=0, sticky="e")
+           self.EmployeeBonus = Employee_ShowBonus()
+           tk.Label(self, text=self.EmployeeBonus).grid(row=2, column=0, sticky="e")
+           tk.Button(self, text="Back to Menu", command=lambda: show_frame(SignIn_frame)).grid(row=7, column=0, columnspan=2)
+ 
+class SignInPage_DataDisplayDsicountFrame(tk.Frame):
+    def __init__(self, parent, controller):        
+           tk.Frame.__init__(self, parent)
+           
+           tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=4, column=0, pady=10, sticky="ew")
+
+class SignInPage_DataDisplayDOAFrame(tk.Frame):
+    def __init__(self, parent, controller):
+           tk.Frame.__init__(self, parent)
+           tk.Button(self, text="Back to Main Menu", command=lambda: show_frame(SignIn_frame)).grid(row=4, column=0, pady=10, sticky="ew")
 
 # Create frames for different operations
-for F in (MainMenuFrame, AddEmployeeFrame, RemoveEmployeeFrame, ModifyEmployeeFrame):
+for F in (MainMenuFrame, AddEmployeeFrame, RemoveEmployeeFrame, ModifyEmployeeFrame,ModifyEmployeePageFrame,SignInPageFrame,
+          SignInPage_DataDisplayFrame,SignInPage_DataDisplayDsicountFrame,SignInPage_DataDisplayDsicountFrame,SignInPage_DataDisplayDOAFrame):
     frame = F(container, root)
     frames[F] = frame
     frame.grid(row=0, column=0, sticky="nsew")
@@ -188,11 +274,21 @@ def show_frame(frame_class):
 
 # Create instances of frames for different operations
 main_menu_frame = MainMenuFrame(container, root)
+
 data_managamentframe = DataMangamentFrame(container, root)
 add_employee_frame = AddEmployeeFrame(container, root)
 remove_employee_frame = RemoveEmployeeFrame(container, root)
 modify_employee_frame = ModifyEmployeeFrame(container, root)
 modify_employeePage_frame = ModifyEmployeePageFrame(container, root)
+
+SignIn_auth = SignInPageAuthFrame(container, root)
+SignIn_frame = SignInPageFrame(container, root)
+SignInDisplay_frame = SignInPage_DataDisplayFrame(container, root)
+SignInDisplayBonus_frame = SignInPage_DataDisplayBonusFrame(container, root)
+SignInDisplayDiscount_frame = SignInPage_DataDisplayDsicountFrame(container, root)
+SignInDisplayDOA_frame = SignInPage_DataDisplayDOAFrame(container, root)
+
+
 
 # Add frames to the dictionary
 frames[main_menu_frame] = main_menu_frame
@@ -202,6 +298,8 @@ frames[add_employee_frame] = add_employee_frame
 frames[remove_employee_frame] = remove_employee_frame
 frames[modify_employee_frame] = modify_employee_frame
 frames[modify_employeePage_frame] = modify_employeePage_frame
+
+
 
 add_emp_t = AddEmployeeFrame(root,None)
 

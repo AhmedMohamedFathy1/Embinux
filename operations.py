@@ -239,15 +239,19 @@ def Employee_DataDisplay():
     print("Targeted_Index" ,Targeted_Index[0])
     print(EmployeeList[Targeted_Index[0]])   
 
+    return EmployeeList[Targeted_Index[0]]
+
 def Employee_ShowBonus():
-     print("Bonus:",(int(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.1))
+     print("Bonus:",(float(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.1))
+     Bonus = (float(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.1)
+     return Bonus
 
 def Employee_ShowDiscount():
      print("Discount:",(int(EmployeeList[Targeted_Index[0]]["Salary"]) * 0.05))
-
+     return ((EmployeeList[Targeted_Index[0]]["Salary"]) * 0.05)
 def Employee_ShowDOA():
      print("Days of Absence: ",EmployeeList[Targeted_Index[0]]["DOA"])
-
+     return EmployeeList[Targeted_Index[0]]["DOA"]
 
 
 def Employee_SignIn_Handler():
