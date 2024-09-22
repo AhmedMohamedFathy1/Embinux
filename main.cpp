@@ -12,7 +12,6 @@
 using namespace std;
 int main()
 {
-
     Sensors_data_t sen_data;
     Update_Sensors update_sensors;
     srand(time(0));
@@ -25,12 +24,12 @@ int main()
 
         sen_data = update_sensors.GetSensorData();  
 
-        cout << sen_data.SpeedSensor_data << endl ; 
-        cout << sen_data.RadarSensor_data << endl ; 
-        cout << sen_data.TemperatureSensor_data << endl ; 
-        cout << sen_data.BatterySensor_data << endl ; 
+        cout << "Main Speed: " << sen_data.SpeedSensor_data << endl ; 
+        // cout << sen_data.RadarSensor_data << endl ; 
+        // cout << sen_data.TemperatureSensor_data << endl ; 
+        // cout << sen_data.BatterySensor_data << endl ; 
 
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+       std::this_thread::sleep_for(std::chrono::seconds(1));
     }
       return 0;
 }

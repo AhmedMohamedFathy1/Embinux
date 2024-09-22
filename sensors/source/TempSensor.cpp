@@ -7,7 +7,7 @@ float Temperature_Sensor::Get_SensorData(void)
  
 }
 
-void Temperature_Sensor::Set_SensorData(float Temperature_InputData)
+void Temperature_Sensor::Set_SensorData(void)
 {
     Temperature_LF_U32_ =  20 + (rand() % 11); // 11 gives numbers from 0 to 10;
 

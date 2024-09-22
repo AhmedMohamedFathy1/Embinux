@@ -12,7 +12,7 @@ class Radar_Sensor : public Sensor<float>
        
         float Get_SensorData(void) override; 
 
-        void Set_SensorData(float Radar_InputData) override;
+        void Set_SensorData(void) override;
 
 };
 

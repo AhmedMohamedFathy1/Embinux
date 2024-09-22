@@ -12,7 +12,7 @@ class Temperature_Sensor : public Sensor<float>
        
         float Get_SensorData(void) override; 
 
-        void Set_SensorData(float Temperature_InputData) override;
+        void Set_SensorData(void) override;
 
 };
 

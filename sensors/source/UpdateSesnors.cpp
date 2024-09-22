@@ -2,10 +2,10 @@
 
 void Update_Sensors::Update_AllSesnors(void)
 {   
-     speed_sensor.Set_SensorData(1);
-     radar_sensor.Set_SensorData(1);
-     temperature_sensor.Set_SensorData(1);
-     battery_sensor.Set_SensorData(1);
+     speed_sensor.Set_SensorData();
+     radar_sensor.Set_SensorData();
+     temperature_sensor.Set_SensorData();
+     battery_sensor.Set_SensorData();
 
      Sensors_data.SpeedSensor_data = speed_sensor.Get_SensorData();
      Sensors_data.RadarSensor_data = radar_sensor.Get_SensorData();
