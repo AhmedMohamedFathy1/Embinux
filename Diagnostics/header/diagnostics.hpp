@@ -8,7 +8,15 @@ class Diagnostics: public Update_Sensors
 {
     private:
     public:
+      void Run_Diagnostics(void);
+
       void ExcesiveSpeed_Check(void);
+
+      void RadarDistance_Check(void);
+
+      void Temperature_Check(void);
+
+      void Battery_Check(void);
 
 
 };

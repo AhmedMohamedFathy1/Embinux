@@ -19,7 +19,7 @@ int main()
 
     while(1)
     {
-        diagnostics.ExcesiveSpeed_Check();
+        diagnostics.Run_Diagnostics();
         // update_sensors.Update_AllSesnors();
 
         // sen_data = update_sensors.GetSensorData();  

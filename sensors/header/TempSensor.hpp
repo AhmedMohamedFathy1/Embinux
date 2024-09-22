@@ -2,11 +2,14 @@
 #define TEMPERTURE_SENSOR
 
 #include "../header/Sensor.hpp"
+#include "../header/SensorSimulators.hpp"
 
-class Temperature_Sensor : public Sensor<float>
+class Temperature_Sensor : public Sensor<float>, public Simulate_Sensor
 {
     private: 
         float Temperature_LF_U32_;
+        Simulate_Sensor *simulate_sensor;  // compistion
+
 
     public:
        
