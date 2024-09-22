@@ -6,25 +6,25 @@
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
-#include "sensors/header/UpdateSesnors.hpp"
+#include "diagnostics.hpp"
 
 
 using namespace std;
 int main()
 {
     Sensors_data_t sen_data;
-    Update_Sensors update_sensors;
+    Diagnostics diagnostics;
     srand(time(0));
 
 
     while(1)
     {
-        
-        update_sensors.Update_AllSesnors();
+        diagnostics.ExcesiveSpeed_Check();
+        // update_sensors.Update_AllSesnors();
 
-        sen_data = update_sensors.GetSensorData();  
+        // sen_data = update_sensors.GetSensorData();  
 
-        cout << "Main Speed: " << sen_data.SpeedSensor_data << endl ; 
+        // cout << "Main Speed: " << sen_data.SpeedSensor_data << endl ; 
         // cout << sen_data.RadarSensor_data << endl ; 
         // cout << sen_data.TemperatureSensor_data << endl ; 
         // cout << sen_data.BatterySensor_data << endl ; 

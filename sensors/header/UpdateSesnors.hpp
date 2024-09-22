@@ -23,6 +23,7 @@ class Update_Sensors
             Temperature_Sensor temperature_sensor; 
             Battery_Sensor battery_sensor; 
 
+        protected:
             Sensors_data_t Sensors_data;
 
         public:
