@@ -5,6 +5,7 @@
 #include "RadarSensor.hpp"
 #include "TempSensor.hpp"
 #include "BatterySensor.hpp"
+#include "FuelSensor.hpp"
 
 typedef struct 
 {
@@ -12,6 +13,8 @@ typedef struct
     float RadarSensor_data ;
     float TemperatureSensor_data ;
     float BatterySensor_data ;
+    int FuelCapacity;
+    
 }Sensors_data_t;
 
 // Composition
@@ -22,6 +25,7 @@ class Update_Sensors
             Radar_Sensor radar_sensor; 
             Temperature_Sensor temperature_sensor; 
             Battery_Sensor battery_sensor; 
+            Fuel_Sensor fuel_sensor;
 
         protected:
             Sensors_data_t Sensors_data;

@@ -9,7 +9,20 @@
 // #define MINIUM_TIME_TO_BRAKE 
 
  
-#define MAX_MOTOR_TEMPERATURE 110 // celisus 
+ /* Motor Temp in celisus */
+#define MAX_MOTOR_TEMPERATURE 110   
+
+/* Battery Voltage */
+#define BATTERY_FULLY_CHARGED 12.6 
+#define BATTERY_PARTIALLY_CHARGED 12.4
+#define BATTERY_LOW_CHARGE_CHARGED 12.2 
+#define BATTERY_DISCHARGED_CHARGED 12.2
+#define BATTERY_DEAD_CHARGED 11.8
+
+
+/* Fuel Capacity in liter */
+#define MIN_FUEL_CAPACITY 9   
+
 
 /**
  * @brief Check if speed increase over speed limit  
@@ -24,7 +37,7 @@ void Diagnostics::ExcesiveSpeed_Check(void)
     }
     else
     {
-        std::cout << "Main Speed: " << Sensors_data.SpeedSensor_data << "km/h"<< std::endl ;
+        std::cout << "Vehicle Speed: " << Sensors_data.SpeedSensor_data << " km/h"<< std::endl ;
     }
 }
 
@@ -37,7 +50,7 @@ void Diagnostics::Temperature_Check(void)
 {
     if(Sensors_data.TemperatureSensor_data > MAX_MOTOR_TEMPERATURE)
     {
-        std::cout << "Car is Overhrating " << "\n Motor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
+        std::cout << "Car is Overhrating " << "\nMotor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
     }
     else
     {
@@ -47,7 +60,43 @@ void Diagnostics::Temperature_Check(void)
 
 void Diagnostics::Battery_Check(void)
 {
+    std::cout <<Sensors_data.BatterySensor_data << " v" << std::endl;
+   
+    if(Sensors_data.BatterySensor_data > BATTERY_FULLY_CHARGED)
+    {
+        std::cout <<"Battery is fully charged " << std::endl;
+    }
+    else if((Sensors_data.BatterySensor_data <= BATTERY_FULLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_PARTIALLY_CHARGED))
+    {
+        std::cout <<"Battery is Partially charged " << std::endl;
+    }
+    else if((Sensors_data.BatterySensor_data <= BATTERY_PARTIALLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_LOW_CHARGE_CHARGED))
+    {
+        std::cout <<"Battery is Low Charge " << std::endl;
+    }
+    else if((Sensors_data.BatterySensor_data <= BATTERY_LOW_CHARGE_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_DEAD_CHARGED))
+    {
+        std::cout <<"Battery is Discharged " << std::endl;
+    }
+    else if(Sensors_data.BatterySensor_data < BATTERY_DEAD_CHARGED)
+    {
+        std::cout <<"Battery is Dead " << std::endl;
+    }
 
+}
+/**
+ * @brief Check if fuel is below 9 liter 
+ * 
+ * @return int 
+ */
+void Diagnostics::LowFuel_Check(void)
+{
+    std::cout <<Sensors_data.FuelCapacity << " L" << std::endl;
+    
+    if(Sensors_data.FuelCapacity < MIN_FUEL_CAPACITY)
+    {
+        std::cout <<"Low Fuel" << std::endl;
+    }
 }
 
 void Diagnostics::Run_Diagnostics(void)
@@ -58,4 +107,10 @@ void Diagnostics::Run_Diagnostics(void)
     Diagnostics::ExcesiveSpeed_Check();
 
     Diagnostics::Temperature_Check();
+
+    Diagnostics::Battery_Check();
+
+    Diagnostics::LowFuel_Check();
+
+    std::cout << std::endl;
 }

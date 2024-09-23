@@ -18,6 +18,8 @@ class Diagnostics: public Update_Sensors
 
       void Battery_Check(void);
 
+      void LowFuel_Check(void);
+
 
 };
 

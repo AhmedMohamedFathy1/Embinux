@@ -10,6 +10,6 @@ float Battery_Sensor::Get_SensorData(void)
 
 void Battery_Sensor::Set_SensorData(void)
 {
-    Battery_Voltage_LF_U32_ =  (rand() % 11); // 11 gives numbers from 0 to 10;
+    Battery_Voltage_LF_U32_ =  simulate_sensor->Simulate_BatterySensor();; // 11 gives numbers from 0 to 10;
 
 }
