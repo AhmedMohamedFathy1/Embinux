@@ -3,6 +3,7 @@
 #include  <iostream>
 
 #include "../header/SensorSimulators.hpp"
+#include "SensorSimulators.hpp"
  /* Vehcile Speed */
 #define VEHICLE_MAX_SPEED 180  
 
@@ -19,11 +20,16 @@
 #define MIN_FUEl  9  // Min Fuel to fire Alaram
 #define MAX_FUEL  37  //Max Fuel Tank capacity 
 
+/* Radar Distance in meter*/
+#define MIN_RADAR_DISTANCE  25  // Min Fuel to fire Alaram
+#define MAX_RADAR_DISTANCE  350  // Min Fuel to fire Alaram
+
 
 #define HOLD_TIME 5
 
 bool SpeedFlag = true;
 bool TempFlag = true;
+
 
 float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime) 
 {
@@ -176,33 +182,76 @@ int Simulate_Sensor::Simulate_FuelSensor(void)
     }
     return Fuel_Tank;
 }
+bool RadarFlag = false;
 
-// float Simulate_Sensor::Simulate_RadarSensor(void) 
-// {
-//     static int counter = 3;
-//     // Set up random number generation
-//     std::random_device rd;   // Seed source
-//     std::mt19937 gen(rd());  // Mersenne Twister engine
-//     std::uniform_real_distribution<float> BatteryVoltageDecreaseDist(0.05, 0.1);
+float Simulate_Sensor::Simulate_RadarSensor(void) 
+{
+    static int RadarCounter = 3;
+    // Set up random number generation
+    std::random_device rd;   // Seed source
+    std::mt19937 gen(rd());  // Mersenne Twister engine
 
-//     static float Battery_Voltage = 12.9f;  // Initial speed
-//     // Battery_Voltage increase
-//     // Hold at max Battery_Voltage
-//     if(counter>0)
-//     {
-//         counter--;
-//     }
+    std::uniform_real_distribution<float> RadarIncreaseDist(1, 5);
+    std::uniform_real_distribution<float> RadarDecreaseDist(1, 5);
 
-//     // Speed decrease
-//     else if (Battery_Voltage <= MAX_VOLTAGE) 
-//     {
-//         Battery_Voltage -= BatteryVoltageDecreaseDist(gen);  // Decrease speed randomly
-//         if (Battery_Voltage < MIN_VOLTAGE) 
-//         {
-//             Battery_Voltage = MIN_VOLTAGE;  // Ensure speed doesn't go below 0
-//         }
-//         counter = 2;
+    static float RadarDistance = 350;  // Initial Distance in m 
+    // Battery_Voltage increase
+    if (RadarDistance <= MAX_RADAR_DISTANCE) 
+    {
+        RadarDistance -= RadarDecreaseDist(gen);  // Decrease Distance randomly
+        if (RadarDistance < MIN_RADAR_DISTANCE) 
+        {
+            RadarDistance = MIN_RADAR_DISTANCE;  
+            TempFlag = true;
+        }
+    }
+    // Hold at max RadarDistance
+    else if(RadarCounter>0)
+    {
+        RadarCounter--;
+    }
 
-//     }
-//     return Battery_Voltage;
-// }
+    // Radar Distance decrease
+    else if ((RadarDistance >= MIN_RADAR_DISTANCE)  && (TempFlag == true))
+    {
+        RadarDistance += RadarIncreaseDist(gen);  // Decrease speed randomly
+        if (RadarDistance  > MAX_RADAR_DISTANCE) 
+        {
+            RadarDistance = MAX_RADAR_DISTANCE;  // Ensure speed doesn't go below 0
+        }
+    }
+    return RadarDistance;
+}
+
+// Scenario 1 : Move in const speed and obstacle found (1 - speed down  - 2 - Stop)
+
+
+
+float Simulate_Sensor::Simulate_Scenario_1(float speed) 
+{
+    static float internalSpeed = speed;
+    static int counter=5;
+        // Set up random number generation
+    std::random_device rd;   // Seed source
+    std::mt19937 gen(rd());  // Mersenne Twister engine
+    std::uniform_int_distribution<> speedIncreaseDist(1, 10);  // temp increase by 1-10 units
+        // Speed increase
+    if ((internalSpeed < 90)  )
+    {
+        internalSpeed += speedIncreaseDist(gen);  // Increase speed randomly
+        if (internalSpeed > 90)
+        {
+            internalSpeed = 90;  // Cap at 90 km/h
+        }
+    }
+  
+    else
+    {
+        counter = 5;
+    }
+    std::cout << "Current speed: " << internalSpeed << " km/h" << std::endl;
+
+
+    return internalSpeed;
+}
+

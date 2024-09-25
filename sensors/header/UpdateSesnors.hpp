@@ -21,19 +21,24 @@ typedef struct
 class Update_Sensors
 {
         private:
+
+// proteceted as i want to inherit from this class 
+        protected:   
             Speed_Sensor speed_sensor; 
             Radar_Sensor radar_sensor; 
             Temperature_Sensor temperature_sensor; 
             Battery_Sensor battery_sensor; 
             Fuel_Sensor fuel_sensor;
 
-        protected:
-            Sensors_data_t Sensors_data;
+            static Sensors_data_t Sensors_data;
+
+
 
         public:
+           static Sensors_data_t& GetSensorData(void);
+
             void Update_AllSesnors(void);
 
-            Sensors_data_t GetSensorData(void);
 
             virtual ~Update_Sensors(){}
 

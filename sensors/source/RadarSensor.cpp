@@ -1,7 +1,9 @@
 #include "../header/RadarSensor.hpp"
+#include "../header/SensorSimulators.hpp"
+
+#include <iostream>
 
 /*  Radar Sensor */
-
 float Radar_Sensor::Get_SensorData(void)
 {
    return Radar_Distance_LF_U32_; 
@@ -10,6 +12,6 @@ float Radar_Sensor::Get_SensorData(void)
 
 void Radar_Sensor::Set_SensorData(void)
 {
-    Radar_Distance_LF_U32_ = 50 + (rand() % 22);;
-
+    Radar_Distance_LF_U32_ = simulate_sensor->Simulate_RadarSensor();
+    std::cout << "Radar " << Radar_Distance_LF_U32_ << std::endl;
 }

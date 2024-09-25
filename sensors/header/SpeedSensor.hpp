@@ -8,7 +8,7 @@ class Speed_Sensor : public Sensor<float>
  {
     private: 
         float Vehicle_Speed_LF_U32_;
-        Simulate_Sensor *simulate_sensor;
+        Simulate_Sensor simulate_sensor;
 
     public:
        

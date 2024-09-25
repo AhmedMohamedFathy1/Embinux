@@ -23,11 +23,17 @@
 /* Fuel Capacity in liter */
 #define MIN_FUEL_CAPACITY 9   
 
+/* Radar Distance in meter*/
+#define DISTACNE_TO_SPEED_DOWM  100  // Min Fuel to fire Alaram
+#define DISTACNE_TO_BRAKE  50  //Max Fuel Tank capacity 
+#define VEHICLE_BRAKING_DECELERATION  7 // assume Vehicle Braking deceleration is 7m/s^2
+
 
 /**
  * @brief Check if speed increase over speed limit  
  * 
  */
+
 
 void Diagnostics::ExcesiveSpeed_Check(void)
 {
@@ -43,7 +49,16 @@ void Diagnostics::ExcesiveSpeed_Check(void)
 
 void Diagnostics::RadarDistance_Check(void)
 {
-    
+     std::cout <<Sensors_data.RadarSensor_data << " m" << std::endl;
+     float SpeedValue_m_s = (Sensors_data.SpeedSensor_data * 5 /18);
+     SpeedValue_m_s *=SpeedValue_m_s;
+     std::cout <<(SpeedValue_m_s / 7 )  << " m" << std::endl;
+
+     if((SpeedValue_m_s / 7 ) > Sensors_data.RadarSensor_data)
+     {
+          std::cout << "Obstacle Found " << std::endl;
+     }
+
 }
 
 void Diagnostics::Temperature_Check(void)
@@ -99,18 +114,23 @@ void Diagnostics::LowFuel_Check(void)
     }
 }
 
+
 void Diagnostics::Run_Diagnostics(void)
 {
-    // Update all sensors Value
+        // Update all sensors Value
     Update_Sensors::Update_AllSesnors();
 
-    Diagnostics::ExcesiveSpeed_Check();
+    // Diagnostics::ExcesiveSpeed_Check();
 
-    Diagnostics::Temperature_Check();
+    // Diagnostics::Temperature_Check();
 
-    Diagnostics::Battery_Check();
+    // Diagnostics::Battery_Check();
 
-    Diagnostics::LowFuel_Check();
+    // Diagnostics::LowFuel_Check();
+
+    // Diagnostics::RadarDistance_Check();
+
+    
 
     std::cout << std::endl;
 }

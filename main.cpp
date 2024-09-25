@@ -2,32 +2,22 @@
 #include <chrono>  // For std::chrono
 #include <thread>  // For std::this_thread::sleep_for
 
-
-#include <cstdlib> // For rand() and srand()
-#include <ctime>   // For time()
-
 #include "diagnostics.hpp"
-
+#include "AdpativeCruiseControl.hpp"
 
 using namespace std;
 int main()
 {
-    Sensors_data_t sen_data;
+  //  Sensors_data_t &Sensors_data = Update_Sensors::GetSensorData();
     Diagnostics diagnostics;
-    srand(time(0));
-
+    AdaptiveCruiseControl ACC;
 
     while(1)
     {
         diagnostics.Run_Diagnostics();
-        // update_sensors.Update_AllSesnors();
+        //std::cout << "Radar in main" << Sensors_data.RadarSensor_data << std::endl;
 
-        // sen_data = update_sensors.GetSensorData();  
-
-        // cout << "Main Speed: " << sen_data.SpeedSensor_data << endl ; 
-        // cout << sen_data.RadarSensor_data << endl ; 
-        // cout << sen_data.TemperatureSensor_data << endl ; 
-        // cout << sen_data.BatterySensor_data << endl ; 
+        ACC.AdpativeCruiseControl_Check();
 
        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
