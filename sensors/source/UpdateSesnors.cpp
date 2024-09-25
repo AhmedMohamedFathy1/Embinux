@@ -17,8 +17,6 @@ void Update_Sensors::Update_AllSesnors(void)
      Sensors_data.BatterySensor_data = battery_sensor.Get_SensorData();
      Sensors_data.FuelCapacity = fuel_sensor.Get_SensorData();
     
-     std::cout << "Radar  sens " << Sensors_data.RadarSensor_data << std::endl;
-
 }
 Sensors_data_t& Update_Sensors::GetSensorData(void) 
 {

@@ -1,7 +1,6 @@
 #ifndef __SENSORSIMULATORS__H__
 #define __SENSORSIMULATORS__H__
 
-#include  <memory>
 class Simulate_Sensor
 {
     protected:
@@ -13,7 +12,7 @@ class Simulate_Sensor
       float Simulate_BatterySensor(void);
       int Simulate_FuelSensor(void);
       float Simulate_RadarSensor(void);
-      float Simulate_Scenario_1(float speed);
+      float Simulate_Scenario_1(float &speed);
 
 };
 

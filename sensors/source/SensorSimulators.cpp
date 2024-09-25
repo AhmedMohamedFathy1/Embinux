@@ -194,7 +194,7 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
     std::uniform_real_distribution<float> RadarIncreaseDist(1, 5);
     std::uniform_real_distribution<float> RadarDecreaseDist(1, 5);
 
-    static float RadarDistance = 350;  // Initial Distance in m 
+    static float RadarDistance = 85;  // Initial Distance in m 
     // Battery_Voltage increase
     if (RadarDistance <= MAX_RADAR_DISTANCE) 
     {
@@ -227,21 +227,21 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
 
 
 
-float Simulate_Sensor::Simulate_Scenario_1(float speed) 
+float Simulate_Sensor::Simulate_Scenario_1(float &speed) 
 {
-    static float internalSpeed = speed;
     static int counter=5;
-        // Set up random number generation
+    
+    // Set up random number generation
     std::random_device rd;   // Seed source
     std::mt19937 gen(rd());  // Mersenne Twister engine
     std::uniform_int_distribution<> speedIncreaseDist(1, 10);  // temp increase by 1-10 units
         // Speed increase
-    if ((internalSpeed < 90)  )
+    if ((speed < 90)  )
     {
-        internalSpeed += speedIncreaseDist(gen);  // Increase speed randomly
-        if (internalSpeed > 90)
+        speed += speedIncreaseDist(gen);  // Increase speed randomly
+        if (speed > 90)
         {
-            internalSpeed = 90;  // Cap at 90 km/h
+            speed = 90;  // Cap at 90 km/h
         }
     }
   
@@ -249,9 +249,9 @@ float Simulate_Sensor::Simulate_Scenario_1(float speed)
     {
         counter = 5;
     }
-    std::cout << "Current speed: " << internalSpeed << " km/h" << std::endl;
+    std::cout << "Current speed: " << speed << " km/h" << std::endl;
 
 
-    return internalSpeed;
+    return speed;
 }
 

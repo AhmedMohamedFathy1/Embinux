@@ -9,6 +9,7 @@ class Diagnostics: public Update_Sensors
     private:
     public:
       Sensors_data_t &Sensors_data = Update_Sensors::GetSensorData();
+
       void Run_Diagnostics(void);
 
       void ExcesiveSpeed_Check(void);
@@ -23,6 +24,5 @@ class Diagnostics: public Update_Sensors
 
 
 };
-
 
 #endif  //!__DIAGNOSTICS__H__

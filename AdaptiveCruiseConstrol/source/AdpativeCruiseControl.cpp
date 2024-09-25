@@ -4,40 +4,42 @@
 
 
 
-Sensors_data_t& sensors_data = Update_Sensors::GetSensorData();
+Sensors_data_t& Sensors_data = Update_Sensors::GetSensorData();
 
-void AdaptiveCruiseControl::decelerate(const int &speed,const int &Deceleration)
+void AdaptiveCruiseControl::decelerate(float &speed,const int &Deceleration)
 {   
-    static int intenalSpeed = speed;
+    // static int intenalSpeed = speed;
     const int Braking_Decleration = Deceleration; 
     const int timeStep = 1;  // Time step for simulation (seconds)
-    while (intenalSpeed > 0)
+    while (speed > 0)
     {
-        intenalSpeed -= Braking_Decleration * timeStep ;
+        speed -= Braking_Decleration * timeStep ;
 
         if(Braking_Decleration == 7)
         {
-            std::cout << "Decelerating... Current speed: " << intenalSpeed << " km/h" << std::endl;
-            if(intenalSpeed> 50)
+            std::cout << "Decelerating... Current speed: " << speed << " km/h" << std::endl;
+            if(speed <  50)
             {
-                intenalSpeed = 50;
+                speed = 50;
                 break;
             }
         }
         else if(Braking_Decleration == 9)
         {
-            std::cout << "Stopping... Current speed: " << intenalSpeed << " km/h" << std::endl;
+            std::cout << "Stopping... Current speed: " << speed << " km/h" << std::endl;
 
-            if(intenalSpeed> 0)
+            if(speed < 0)
             {
-                intenalSpeed = 0;
+                speed = 0;
                 std::cout << "Car Stopped" << std::endl;
                 break;
             }
         }
-        else{}
+        else
+        {
+            break;
+        }
 
- 
     }
 }
 void AdaptiveCruiseControl::Speed_Control()
@@ -48,15 +50,15 @@ void AdaptiveCruiseControl::Speed_Control()
     
     // if(FlagState == true)
     // {
-        std::cout << "ACC: " << sensors_data.RadarSensor_data << std::endl;
-        // if((update_Sensor.Sensors_data.RadarSensor_data < DISTANCE_TO_SLOW_DOWN) && ((update_Sensor.Sensors_data.RadarSensor_data > DISTANCE_TO_STOP)))
-        // {
-        //     AdaptiveCruiseControl::decelerate(update_Sensor.Sensors_data.SpeedSensor_data,7);
-        // }
-        // else if(update_Sensor.Sensors_data.RadarSensor_data < DISTANCE_TO_STOP)
-        // {
-        //    AdaptiveCruiseControl::decelerate(update_Sensor.Sensors_data.SpeedSensor_data,9);
-        // }
+        std::cout << "ACC: " << Sensors_data.RadarSensor_data << std::endl;
+        if((Sensors_data.RadarSensor_data < DISTANCE_TO_SLOW_DOWN) && ((Sensors_data.RadarSensor_data > DISTANCE_TO_STOP)))
+        {
+            AdaptiveCruiseControl::decelerate(Sensors_data.SpeedSensor_data,7);
+        }
+        else if(Sensors_data.RadarSensor_data < DISTANCE_TO_STOP)
+        {
+            AdaptiveCruiseControl::decelerate(Sensors_data.SpeedSensor_data,9);
+        }
     //  }
 }
 

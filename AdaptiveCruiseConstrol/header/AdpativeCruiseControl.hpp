@@ -29,10 +29,11 @@ class AdaptiveCruiseControl
     protected: 
       Simulate_Sensor simulate_sensor;
       Update_Sensors update_Sensor; // has-a Compistion is better as i just want to access data from this class not all data 
-   
+      Speed_Sensor speed_Sensor;
+      
     public:
      void Speed_Control(void);
-     void decelerate(const int &speed,const int &Deceleration);
+     void decelerate(float &speed,const int &Deceleration);
   
 
     void AdpativeCruiseControl_Check(void);
