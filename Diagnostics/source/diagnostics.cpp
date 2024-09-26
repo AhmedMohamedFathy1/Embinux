@@ -30,6 +30,14 @@
 
 
 
+Diagnostics_Flags Diagnostics::diagnostics_Flags;
+
+// Initialize the static members of Diagnostics_Flags
+bool Diagnostics_Flags::ObstacleFound_Is_High_GDB = false;
+bool Diagnostics_Flags::Motor_Temperature_Is_High_GDB = false;
+
+
+Diagnostics_Flags  & FlagState = Diagnostics::Get_FlagsState();
 
 /**
  * @brief Check if speed increase over speed limit  
@@ -51,13 +59,17 @@ void Diagnostics::ExcesiveSpeed_Check(void)
 
 void Diagnostics::RadarDistance_Check(void)
 {
-     std::cout <<Sensors_data.RadarSensor_data << " m" << std::endl;
+
+    //  std::cout <<Sensors_data.RadarSensor_data << " m" << std::endl;
      float SpeedValue_m_s = (Sensors_data.SpeedSensor_data * 5 /18);
      SpeedValue_m_s *=SpeedValue_m_s;
-     std::cout <<(SpeedValue_m_s / 7 )  << " m" << std::endl;
+    //  std::cout <<(SpeedValue_m_s / 7 )  << " m" << std::endl;
 
-     if((SpeedValue_m_s / 7 ) > Sensors_data.RadarSensor_data)
+     if(((SpeedValue_m_s / 7)+10) > Sensors_data.RadarSensor_data)
      {
+        //   Diagnostics_Flags::ObstacleFound_Is_High_GDB = true;
+          FlagState.ObstacleFound_Is_High_GDB = true;
+        
           std::cout << "Obstacle Found " << std::endl;
      }
 
@@ -67,23 +79,24 @@ void Diagnostics::Temperature_Check(void)
 {
     if(Sensors_data.TemperatureSensor_data > MAX_MOTOR_TEMPERATURE)
     {
+        // Diagnostics::diagnostics_Flags. = true;
         std::cout << "Car is Overhrating " << "\nMotor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
     }
-    else
-    {
-        std::cout << "Normal Temperature: " << Sensors_data.TemperatureSensor_data << "°C"<< std::endl ;
-    }
+    // else
+    // {
+    //     std::cout << "Normal Temperature: " << Sensors_data.TemperatureSensor_data << "°C"<< std::endl ;
+    // }
 }
 
 void Diagnostics::Battery_Check(void)
 {
     std::cout <<Sensors_data.BatterySensor_data << " v" << std::endl;
    
-    if(Sensors_data.BatterySensor_data > BATTERY_FULLY_CHARGED)
-    {
-        std::cout <<"Battery is fully charged " << std::endl;
-    }
-    else if((Sensors_data.BatterySensor_data <= BATTERY_FULLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_PARTIALLY_CHARGED))
+    // if(Sensors_data.BatterySensor_data > BATTERY_FULLY_CHARGED)
+    // {
+    //     std::cout <<"Battery is fully charged " << std::endl;
+    // }
+    if((Sensors_data.BatterySensor_data <= BATTERY_FULLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_PARTIALLY_CHARGED))
     {
         std::cout <<"Battery is Partially charged " << std::endl;
     }
@@ -108,12 +121,17 @@ void Diagnostics::Battery_Check(void)
  */
 void Diagnostics::LowFuel_Check(void)
 {
-    std::cout <<Sensors_data.FuelCapacity << " L" << std::endl;
+    // std::cout <<Sensors_data.FuelCapacity << " L" << std::endl;
     
     if(Sensors_data.FuelCapacity < MIN_FUEL_CAPACITY)
     {
         std::cout <<"Low Fuel" << std::endl;
     }
+}
+
+Diagnostics_Flags &Diagnostics::Get_FlagsState(void)
+{
+    return diagnostics_Flags;
 }
 
 
@@ -130,9 +148,11 @@ void Diagnostics::Run_Diagnostics(void)
 
     // Diagnostics::LowFuel_Check();
 
-    // Diagnostics::RadarDistance_Check();
+    Diagnostics::RadarDistance_Check();
 
     
 
     std::cout << std::endl;
 }
+
+
