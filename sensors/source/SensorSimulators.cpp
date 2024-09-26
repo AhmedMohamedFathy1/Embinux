@@ -241,7 +241,6 @@ float Simulate_Sensor::Simulate_Scenario_1(float &speed)
         speed += speedIncreaseDist(gen);  // Increase speed randomly
         if (speed > 90)
         {
-            std::cout << "Speed is 90" <<std::endl;
             speed = 90;  // Cap at 90 km/h
         }
     }

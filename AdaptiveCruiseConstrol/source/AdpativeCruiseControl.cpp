@@ -11,7 +11,6 @@ Sensors_data_t& Sensors_data = Update_Sensors::GetSensorData();
 
 void AdaptiveCruiseControl::decelerate(float &speed,const int &Deceleration)
 {   
-    // static int intenalSpeed = speed;
     const int timeStep = 1;  // Time step for simulation (seconds)
     while (speed > 0)
     {
@@ -25,8 +24,8 @@ void AdaptiveCruiseControl::decelerate(float &speed,const int &Deceleration)
                 break;
             }
             std::cout << "Decelerating... Current speed: " << speed << " km/h" << std::endl;
-
         }
+
         else if(Deceleration == 9)
         {
             if(speed < 0)
@@ -49,13 +48,13 @@ void AdaptiveCruiseControl::Speed_Control()
 {
     bool &flag = simulate_sensor.Get_ObstacleFlag();
 
-    std::cout << "ACC flag " << flag << std::endl;
-    
     if(flag == true)
     {
-        std::cout << "ACC: " << Sensors_data.RadarSensor_data << std::endl;
+        std::cout << "sensor data : " << Sensors_data.RadarSensor_data << " , DISTANCE_TO_SLOW_DOWN: " << DISTANCE_TO_SLOW_DOWN << " , DISTANCE_TO_STOP: " << DISTANCE_TO_STOP << std::endl;
         if((Sensors_data.RadarSensor_data < DISTANCE_TO_SLOW_DOWN) && ((Sensors_data.RadarSensor_data > DISTANCE_TO_STOP)))
         {
+            std::cout  << "entered here 1" << std::endl;
+
             AdaptiveCruiseControl::decelerate(Sensors_data.SpeedSensor_data,SPEED_DOWN_DECELERATION);
         }
         else if(Sensors_data.RadarSensor_data < DISTANCE_TO_STOP)
