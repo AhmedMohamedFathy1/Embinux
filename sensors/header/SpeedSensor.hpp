@@ -14,7 +14,7 @@ class Speed_Sensor : public Sensor<float>
        
         float Get_SensorData(void) override; 
 
-        void Set_SensorData(void) override;
+        void Set_SensorData(float value) override;
 
 };
 

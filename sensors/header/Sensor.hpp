@@ -9,7 +9,7 @@ class Sensor
 {
         public:
             virtual T Get_SensorData(void)=0; 
-            virtual void Set_SensorData(void)=0; 
+            virtual void Set_SensorData(T value)=0; 
 
             virtual ~Sensor(){}
 
