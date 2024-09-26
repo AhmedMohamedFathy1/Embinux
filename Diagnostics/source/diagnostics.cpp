@@ -135,12 +135,12 @@ Diagnostics_Flags &Diagnostics::Get_FlagsState(void)
 }
 
 
-void Diagnostics::Run_Diagnostics(void)
+void Diagnostics::Run_Diagnostics(float val)
 {
         // Update all sensors Value
-    Update_Sensors::Update_AllSesnors();
+    Update_Sensors::Update_AllSesnors(val);
 
-    // Diagnostics::ExcesiveSpeed_Check();
+    Diagnostics::ExcesiveSpeed_Check();
 
     // Diagnostics::Temperature_Check();
 

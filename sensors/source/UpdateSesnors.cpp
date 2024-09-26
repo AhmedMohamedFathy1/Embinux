@@ -3,9 +3,11 @@
 
 Sensors_data_t Update_Sensors::Sensors_data;
 
-void Update_Sensors::Update_AllSesnors(void)
+void Update_Sensors::Update_AllSesnors(float val)
 {   
-     speed_sensor.Set_SensorData(1);
+
+     
+     speed_sensor.Set_SensorData(val);
      radar_sensor.Set_SensorData(1);
      temperature_sensor.Set_SensorData(1);
      battery_sensor.Set_SensorData(1);

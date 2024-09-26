@@ -4,6 +4,7 @@
 
 #include "diagnostics.hpp"
 #include "AdpativeCruiseControl.hpp"
+#include "SensorSimulators.hpp"
 
 using namespace std;
 int main()
@@ -11,11 +12,14 @@ int main()
   //  Sensors_data_t &Sensors_data = Update_Sensors::GetSensorData();
     Diagnostics diagnostics;
     AdaptiveCruiseControl ACC;
- 
- 
+    Simulate_Sensor simulate_Sensor;
+    float MainSpeed = 0;
     while(1)
     {
-        diagnostics.Run_Diagnostics();
+
+        MainSpeed = simulate_Sensor.Simulate_SpeedSensor(120,5);
+
+        diagnostics.Run_Diagnostics(MainSpeed);
 
         ACC.AdpativeCruiseControl_Manager();
 

@@ -37,7 +37,7 @@ class Update_Sensors
         public:
            static Sensors_data_t& GetSensorData(void);
 
-            void Update_AllSesnors(void);
+            void Update_AllSesnors(float val);
 
 
             virtual ~Update_Sensors(){}
