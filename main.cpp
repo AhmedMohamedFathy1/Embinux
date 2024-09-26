@@ -17,7 +17,7 @@ int main()
     {
         diagnostics.Run_Diagnostics();
 
-        ACC.AdpativeCruiseControl_Check();
+        ACC.AdpativeCruiseControl_Manager();
 
 
        std::this_thread::sleep_for(std::chrono::seconds(1));

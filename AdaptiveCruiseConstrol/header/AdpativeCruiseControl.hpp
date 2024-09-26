@@ -3,7 +3,8 @@
 
 #include "UpdateSesnors.hpp"
 #include "SensorSimulators.hpp"
-
+#include "diagnostics.hpp"
+#include "SpeedSensor.hpp"
 
 #define  NORMAL_BRAKING_DECELRATION  7 
 #define  FULL_BRAKING_DECELRATION  9 
@@ -29,14 +30,15 @@ class AdaptiveCruiseControl
     protected: 
       Simulate_Sensor simulate_sensor;
       Update_Sensors update_Sensor; // has-a Compistion is better as i just want to access data from this class not all data 
-      Speed_Sensor speed_Sensor;
-      
+      Speed_Sensor ACC_speed_Sensor;
+      Diagnostics diagnostics; 
+
     public:
      void Speed_Control(void);
-     void decelerate(float &speed,const int &Deceleration);
-  
+    void decelerate(float &speed,const int &Deceleration,const float &Required_Speed);  
+    void MotorTemperature_Check(void);
 
-    void AdpativeCruiseControl_Check(void);
+    void AdpativeCruiseControl_Manager(void);
 };
 
 
