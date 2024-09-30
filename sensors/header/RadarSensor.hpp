@@ -18,6 +18,8 @@ class Radar_Sensor : public Sensor<float>
 
         void Set_SensorData(float value) override;
 
+        static Radar_Sensor& Get_RadarSensor_Instance(void);
+
 };
 
 #endif

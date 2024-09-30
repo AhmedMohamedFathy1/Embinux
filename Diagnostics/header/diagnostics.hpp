@@ -19,7 +19,7 @@ class Diagnostics: public Update_Sensors
 
       Sensors_data_t &Sensors_data = Update_Sensors::GetSensorData();
 
-      void Run_Diagnostics(float val);
+      void Run_Diagnostics(void);
 
       void ExcesiveSpeed_Check(void);
 

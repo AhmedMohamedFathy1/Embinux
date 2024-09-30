@@ -1,4 +1,5 @@
 #include "../header/FuelSensor.hpp"
+#include "FuelSensor.hpp"
 
 
 float Fuel_Sensor::Get_SensorData(void)
@@ -9,4 +10,10 @@ float Fuel_Sensor::Get_SensorData(void)
 void Fuel_Sensor::Set_SensorData(float value)
 {
      Fuel_Capacity_LI_U32_ =  simulate_sensor->Simulate_FuelSensor();
+}
+
+Fuel_Sensor Fuel_Sensor::Get_FuelSensor_Instance(void)
+{
+    static Fuel_Sensor fuel_Sensor_Instance;
+    return fuel_Sensor_Instance ;     
 }

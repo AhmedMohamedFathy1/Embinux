@@ -16,6 +16,7 @@ class Fuel_Sensor : public Sensor<float>
 
         void Set_SensorData(float value) override;
 
+        static Fuel_Sensor Get_FuelSensor_Instance(void);
 };
 
 #endif  //!__FUELSENSOR__H__

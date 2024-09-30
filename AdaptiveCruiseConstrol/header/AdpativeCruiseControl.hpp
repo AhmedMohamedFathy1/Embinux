@@ -30,15 +30,14 @@ class AdaptiveCruiseControl
     protected: 
       Simulate_Sensor simulate_sensor;
       Update_Sensors update_Sensor; // has-a Compistion is better as i just want to access data from this class not all data 
-      Speed_Sensor ACC_speed_Sensor;
+      Speed_Sensor ACC_speed_Sensor = Speed_Sensor::Get_SpeedSensor_Instance();
       Diagnostics diagnostics; 
 
     public:
      void Speed_Control(void);
-    void decelerate(float &speed,const int &Deceleration,const float &Required_Speed);  
-    void MotorTemperature_Check(void);
+     void MotorTemperature_Check(void);
 
-    void AdpativeCruiseControl_Manager(void);
+     void AdpativeCruiseControl_Manager(void);
 };
 
 

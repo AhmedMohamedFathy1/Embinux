@@ -3,11 +3,10 @@
 
 Sensors_data_t Update_Sensors::Sensors_data;
 
-void Update_Sensors::Update_AllSesnors(float val)
+void Update_Sensors::Update_AllSesnors(void)
 {   
 
-     
-     speed_sensor.Set_SensorData(val);
+     speed_sensor.Set_SensorData(25);
      radar_sensor.Set_SensorData(1);
      temperature_sensor.Set_SensorData(1);
      battery_sensor.Set_SensorData(1);
@@ -18,7 +17,8 @@ void Update_Sensors::Update_AllSesnors(float val)
      Sensors_data.TemperatureSensor_data = temperature_sensor.Get_SensorData();
      Sensors_data.BatterySensor_data = battery_sensor.Get_SensorData();
      Sensors_data.FuelCapacity = fuel_sensor.Get_SensorData();
-    
+     std::cout << "speed: " << Sensors_data.SpeedSensor_data << std::endl;
+
 }
 Sensors_data_t& Update_Sensors::GetSensorData(void) 
 {

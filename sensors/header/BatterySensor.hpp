@@ -16,6 +16,9 @@ class Battery_Sensor : public Sensor<float>
 
         void Set_SensorData(float value) override;
 
+        static Battery_Sensor Get_BatterySensor_Instance(void);
+
+
 };
 
 

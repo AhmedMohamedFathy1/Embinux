@@ -7,7 +7,9 @@
 #include "SpeedSensor.hpp"
 
 Diagnostics diagnostics; 
-Speed_Sensor speed_Sensor;
+Speed_Sensor & speed_Sensor = Speed_Sensor::Get_SpeedSensor_Instance();
+
+Scenarios_Flags &scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance();
 
  /* Vehcile Speed */
 #define VEHICLE_MAX_SPEED 180  
@@ -29,50 +31,84 @@ Speed_Sensor speed_Sensor;
 #define MIN_RADAR_DISTANCE  25  // Min Fuel to fire Alaram
 #define MAX_RADAR_DISTANCE  350  // Min Fuel to fire Alaram
 
+#define SPEED_DOWN_DECELERATION 7   // Average Decelartion on normal force braking is from 7-8
+#define STOPPING_DECELERATION   9  // Average Decelartion on high force braking is from 9-10
+
+#define TOTAL_STOP 0 
+#define SLOW_DOWN_SPEED 50 
 
 #define HOLD_TIME 5
 
 bool TempFlag = true;
 
 
-float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime) 
-{
-    static int counter = holdTime;
-    // Set up random number generation
-    std::random_device rd;   // Seed source
-    std::mt19937 gen(rd());  // Mersenne Twister engine
-    std::uniform_int_distribution<> speedIncreaseDist(1, 20);  // Speed increase by 1-10 units
-    std::uniform_int_distribution<> speedDecreaseDist(1, 20);  // Speed decrease by 1-10 units
 
-    static float speed = 0;  // Initial speed
-    // Speed increase
-    if ((speed < VEHICLE_MAX_SPEED)  && (diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == false))
+void Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
+{ 
+    const int timeStep = 1; // Time step for simulation (seconds)
+    while (speed > TOTAL_STOP)
     {
-        speed += speedIncreaseDist(gen);  // Increase speed randomly
-        if (speed > VEHICLE_MAX_SPEED)
+        speed -= Deceleration * timeStep ;
+      //  ACC_speed_Sensor.Set_SensorData(speed); // update new value in the class 
+
+        if(Deceleration == SPEED_DOWN_DECELERATION)
         {
-            speed = VEHICLE_MAX_SPEED;  // Cap at max speed
+            if(speed < 50)
+            {
+            speed = 50;
+            break;
+            }
+            std::cout << "Decelerating... Current speed: " << speed << " km/h" << std::endl;
         }
-        return speed;
+
+        else if(Deceleration == STOPPING_DECELERATION)
+        {
+            if(speed < TOTAL_STOP)
+            {
+            speed = TOTAL_STOP;
+            std::cout << "Car Stopped" << std::endl;
+            break;
+            }
+            std::cout << "Stopping... Current speed: " << speed << " km/h" << std::endl;
+        }
+        else
+        {
+           break;
+        }
 
     }
+}
 
-    // // Hold at max speed
-    // else if((speed >= VEHICLE_MAX_SPEED )&& (counter>0))
-    // {
-    //     counter--;
-    // }
+float Vehcile_speed_GF_U32 = 0;  // Initial speed
 
-    // // Speed decrease
-    // else if ((speed <= VEHICLE_MAX_SPEED) && (speed > 0)) 
-    // {
-    //     speed -= speedDecreaseDist(gen);  // Decrease speed randomly
-    //     if (speed < 0) 
-    //     {
-    //         speed = 0;  // Ensure speed doesn't go below 0
-    //     }
-    // }
-    // speed_Sensor.Set_SensorData(speed);
+float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime) 
+{
+   if(scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB == true)
+   {
+        static int counter = holdTime;
+        // Set up random number generation
+        std::random_device rd;   // Seed source
+        std::mt19937 gen(rd());  // Mersenne Twister engine
+        std::uniform_int_distribution<> speedIncreaseDist(1, 20);  // Speed increase by 1-10 units
+        std::uniform_int_distribution<> speedDecreaseDist(1, 20);  // Speed decrease by 1-10 units
+
+        // Speed increase
+        std::cout << "Flag State: " << diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB << std::endl;
+        if ((Vehcile_speed_GF_U32 < VEHICLE_MAX_SPEED)  && (diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == false))
+        {
+            Vehcile_speed_GF_U32 += speedIncreaseDist(gen);  // Increase speed randomly
+            if (Vehcile_speed_GF_U32 > VEHICLE_MAX_SPEED)
+            {
+                Vehcile_speed_GF_U32 = VEHICLE_MAX_SPEED;  // Cap at max speed
+            }
+            speed_Sensor.Set_SensorData(Vehcile_speed_GF_U32);
+        }
+        else
+        {
+
+        }
+   } 
+   return Vehcile_speed_GF_U32; // TODO: we need to remove or remove Set_SensorData() 
 
 }
 
@@ -230,42 +266,20 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
 }
 
 // Scenario 1 : Move in const speed and obstacle found (1 - speed down  - 2 - Stop)
-void Simulate_Sensor::Simulate_Scenario_1(float &speed) 
+void Simulate_Sensor::Simulate_Scenario_1() 
 {
-    static int counter=5;
-    // Set up random number generation
-    std::random_device rd;   // Seed source
-    std::mt19937 gen(rd());  // Mersenne Twister engine
-    std::uniform_int_distribution<> speedIncreaseDist(1, 10);  // temp increase by 1-10 units
-    // Speed increase
-    if ((speed < 90) &&(diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == false)) // if there is obstaaacle we don't want to increas speed 
-    {
-        speed += speedIncreaseDist(gen);  // Increase speed randomly
-        if (speed > 90)
-        {
-            speed = 90;  // Cap at 90 km/h
-        }
-        speed_Sensor.Set_SensorData(speed);
+    scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = false;
 
-    }
-    // if((counter > 0) && (speed == 90))
-    // {
-    //     counter--;
-    // }
-    // else if((counter == 0) && (speed == 90))
-    // {
-    //     Simulate_Sensor::Obstacle_SpeedFlag_GDB = true;
-    // }
-
-
-    // std::cout << "Current speed: " << speed << " km/h" << std::endl;
-
-    // return speed;
+    scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
+    scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = true;
 }
-/** 
-* brief : increase speed to 120 km/h and while and then increase motor temperature above normal so car must stop 
-* 
-*/
+
+/**
+ * brief : increase speed to 120 km/h and while and then increase motor temperature above normal so car must stop
+ *
+ */
 // float Simulate_Sensor::Simulate_Scenario_2(float &speed,float &temperature)
 // {
 //     static int Scenario2_Counter = 5;
@@ -300,3 +314,8 @@ void Simulate_Sensor::Simulate_Scenario_1(float &speed)
 //     return temperature;
 // }
 
+Scenarios_Flags &Simulate_Sensor::Get_Scenarios_Flags_Instance(void)
+{
+    static Scenarios_Flags scenarios_Flags;
+    return scenarios_Flags;
+}

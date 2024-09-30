@@ -13,13 +13,10 @@ int main()
     Diagnostics diagnostics;
     AdaptiveCruiseControl ACC;
     Simulate_Sensor simulate_Sensor;
-    float MainSpeed = 0;
     while(1)
     {
-
-        MainSpeed = simulate_Sensor.Simulate_SpeedSensor(120,5);
-
-        diagnostics.Run_Diagnostics(MainSpeed);
+        simulate_Sensor.Simulate_Scenario_1();
+        diagnostics.Run_Diagnostics();
 
         ACC.AdpativeCruiseControl_Manager();
 
