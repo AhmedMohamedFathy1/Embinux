@@ -27,8 +27,8 @@
 
 struct ACC_ConditionsFlags
 {
-  bool ACC_Slow_Down_Flag = false;
-  bool ACC_Stopping_Flag = false;
+  static bool ACC_Slow_Down_Flag ;
+  static bool ACC_Stopping_Flag ;
 };
 
 
@@ -42,7 +42,6 @@ class AdaptiveCruiseControl
       
 
     public:
-    static ACC_ConditionsFlags ACC_conditionsflags_PDB;
 
      void Speed_Control(void);
      void MotorTemperature_Check(void);

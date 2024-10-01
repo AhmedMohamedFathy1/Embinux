@@ -20,9 +20,6 @@ float Speed_Sensor::Get_SensorData(void)
 void Speed_Sensor::Set_SensorData(float value)
 {
     Vehicle_Speed_LF_U32_ = simulate_sensor.Simulate_SpeedSensor(120,5); 
-    // std::cout << "Trial " << value << std::endl;
-    // Speed_Sensor::Vehicle_Speed_LF_U32_ = value;   
-    // std::cout << "Trial 2 " << Vehicle_Speed_LF_U32_ << std::endl;
 }
 
 

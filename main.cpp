@@ -16,7 +16,8 @@ int main()
     
     while(1)
     {
-        simulate_Sensor.Simulate_Scenario_1();
+        simulate_Sensor.Scenario_Handler();
+
         diagnostics.Run_Diagnostics();
 
         ACC.AdpativeCruiseControl_Manager();

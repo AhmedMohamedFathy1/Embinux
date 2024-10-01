@@ -40,49 +40,60 @@ Scenarios_Flags &scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance
 
 #define HOLD_TIME 5
 
-bool TempFlag = true;
+bool InitFlag_GDB = false;
 
 ACC_ConditionsFlags Diagnostics_conditionsFlags = AdaptiveCruiseControl::Get_ACC_FlagInstance();
 
 Sensors_data_t& SS_sensors_data = Update_Sensors::GetSensorData();
 
+ScenarioStates State = ScenarioStates::Scenario1;
 
 float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
 { 
-    std::cout << "Entered in Deceleration: " << std::endl;
-
-    const int timeStep = 1; // Time step for simulation (seconds)
-    while (speed > SS_TOTAL_STOP)
+    if(scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB == true)
     {
-        std::cout << "Deceleration: " <<Deceleration<<std::endl;
-        speed -= Deceleration * timeStep ;
-      //  ACC_speed_Sensor.Set_SensorData(speed); // update new value in the class 
-
-        if(Deceleration == SS_SPEED_DOWN_DECELERATION)
+        const int timeStep = 1; // Time step for simulation (seconds)
+        while (speed > SS_TOTAL_STOP)
         {
-            if(speed < 50)
+            speed -= Deceleration * timeStep;
+        //  ACC_speed_Sensor.Set_SensorData(speed); // update new value in the class 
+
+            if(Deceleration == SS_SPEED_DOWN_DECELERATION)
             {
-            speed = 50;
+                if(speed < 50)
+                {
+                    speed = 50;
+                    break;
+                }
+                std::cout << "Decelerating... Current speed: " << speed << " km/h" << std::endl;
+            }
+
+            else if(Deceleration == SS_STOPPING_DECELERATION)
+            {
+                if(static_cast<int>(speed) < SS_TOTAL_STOP)
+                {
+                    speed = SS_TOTAL_STOP;
+                    std::cout << "Car Stopped" << std::endl;
+                    if (diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true) 
+                    {
+                        InitFlag_GDB = false;
+                        State = ScenarioStates::Scenario2;  
+                    } 
+                    else if(diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB == true) 
+                    {
+                        InitFlag_GDB = false;
+                        State = ScenarioStates::Scenario3;  
+                    }
+                    break;
+                }
+                std::cout << "Stopping... Current speed: " << speed << " km/h" << std::endl;
+            }
+            else
+            {
             break;
             }
-            std::cout << "Decelerating... Current speed: " << speed << " km/h" << std::endl;
+            return speed;
         }
-
-        else if(Deceleration == SS_STOPPING_DECELERATION)
-        {
-            if(speed < SS_TOTAL_STOP)
-            {
-                speed = SS_TOTAL_STOP;
-                std::cout << "Car Stopped" << std::endl;
-                break;
-            }
-            std::cout << "Stopping... Current speed: " << speed << " km/h" << std::endl;
-        }
-        else
-        {
-           break;
-        }
-        return speed;
     }
 }
 
@@ -93,7 +104,6 @@ float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime)
 {
    if(scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB == true)
    {
-
         static int counter = holdTime;
         // Set up random number generation
         std::random_device rd;   // Seed source
@@ -102,15 +112,9 @@ float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime)
         std::uniform_int_distribution<> speedDecreaseDist(1, 15);  // Speed decrease by 1-10 units
 
         // Speed increase
-     //   std::cout << "Flag State: " << diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB << std::endl;
-        std::cout << " dec " << diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB<< std::endl;
-
-        if(diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true)
+        if((diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true) || (diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB == true))
         {
-            std::cout << " entered " << AdaptiveCruiseControl::ACC_conditionsflags_PDB.ACC_Slow_Down_Flag << std::endl;
-           // std::cout << " entered 2" << &Diagnostics_conditionsFlags.ACC_Stopping_Flag << std::endl;
-
-            if(AdaptiveCruiseControl::ACC_conditionsflags_PDB.ACC_Slow_Down_Flag == true)
+            if(Diagnostics_conditionsFlags.ACC_Slow_Down_Flag == true)
             {
                 Vehcile_speed_GF_U32 = decelerate(SS_sensors_data.SpeedSensor_data,SS_SPEED_DOWN_DECELERATION);
             }
@@ -121,6 +125,7 @@ float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime)
         }
         if ((Vehcile_speed_GF_U32 < VEHICLE_MAX_SPEED)  && (diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == false))
         {
+            std::cout << "obs "  << std::endl;
             Vehcile_speed_GF_U32 += speedIncreaseDist(gen);  // Increase speed randomly
             if (Vehcile_speed_GF_U32 > VEHICLE_MAX_SPEED)
             {
@@ -142,7 +147,6 @@ int Simulate_Sensor::Simulate_TemperatureSensor(void)
 {
     if(scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB == true)
     {
-        static int TempCounter = 5;
         // Set up random number generation
         std::random_device rd;   // Seed source
         std::mt19937 gen(rd());  // Mersenne Twister engine
@@ -150,30 +154,20 @@ int Simulate_Sensor::Simulate_TemperatureSensor(void)
         std::uniform_int_distribution<> TempertureDecreaseDist(1, 10);  // temp decrease by 1-10 units
 
         static float Motor_Temperature = 70;  // Initial temp
+        if(diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true)
+        {
+            if(Diagnostics_conditionsFlags.ACC_Stopping_Flag == true)
+            {
+                Vehcile_speed_GF_U32 = decelerate(SS_sensors_data.SpeedSensor_data,SS_STOPPING_DECELERATION);
+            }
+        }
         // temp increase
-        if ((Motor_Temperature < MAX_ALLOWED_MOTOR_TEMPERATURE)  && (TempFlag == true))
+        if ((Motor_Temperature < MAX_ALLOWED_MOTOR_TEMPERATURE) && (diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB == false))
         {
             Motor_Temperature += TempertureIncreaseDist(gen);  // Increase temp randomly
             if (Motor_Temperature > MAX_ALLOWED_MOTOR_TEMPERATURE)
             {
                 Motor_Temperature = MAX_ALLOWED_MOTOR_TEMPERATURE;
-                TempFlag = false;
-            }
-        }
-
-        // Hold at max MAX_ALLOWED_MOTOR_TEMPERATURE
-        else if((Motor_Temperature >= MAX_ALLOWED_MOTOR_TEMPERATURE )&& (TempCounter>0))
-        {
-            TempCounter--;
-        }
-
-        // temp decrease
-        else if ((Motor_Temperature <= MAX_ALLOWED_MOTOR_TEMPERATURE) && (Motor_Temperature > 0)) 
-        {
-            Motor_Temperature -= TempertureDecreaseDist(gen);  // Decrease temp randomly
-            if (Motor_Temperature < NORAML_OPERATING_MOTOR_TEMPERATURE) 
-            {
-                Motor_Temperature = NORAML_OPERATING_MOTOR_TEMPERATURE;  // Ensure temp doesn't go below 0
             }
         }
         return Motor_Temperature;
@@ -279,7 +273,6 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
             if (RadarDistance < MIN_RADAR_DISTANCE) 
             {
                 RadarDistance = MIN_RADAR_DISTANCE;  
-                TempFlag = true;
             }
         }
         // Hold at max RadarDistance
@@ -289,7 +282,7 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
         }
 
         // Radar Distance decrease
-        else if ((RadarDistance >= MIN_RADAR_DISTANCE)  && (TempFlag == true))
+        else if (RadarDistance >= MIN_RADAR_DISTANCE)
         {
             RadarDistance += RadarIncreaseDist(gen);  // Decrease speed randomly
             if (RadarDistance  > MAX_RADAR_DISTANCE) 
@@ -317,39 +310,67 @@ void Simulate_Sensor::Simulate_Scenario_1()
  * brief : increase speed to 120 km/h and while and then increase motor temperature above normal so car must stop
  *
  */
-// float Simulate_Sensor::Simulate_Scenario_2(float &speed,float &temperature)
-// {
-//     static int Scenario2_Counter = 5;
-//     bool Temperature_Rise_GDB = false;
-//     // Set up random number generation
-//     std::random_device rd; // Seed source
-//     std::mt19937 gen(rd()); // Mersenne Twister engine
-//     std::uniform_int_distribution<> speedIncreaseDist(1, 10); // temp increase by 1-10 units
-//     // Speed increase
-//     if ((speed < 120) &&(Simulate_Sensor::Obstacle_SpeedFlag_GDB == false)) // if there is obstaaacle we don't want to increas speed 
-//     {
-//         speed += speedIncreaseDist(gen); // Increase speed randomly
-//         if (speed > 120)
-//         {
-//             speed = 120; // Cap at 120 km/h
-//         }
-//     }
+void Simulate_Sensor::Simulate_Scenario_2(void)
+{
+    scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = false;
 
-//     if((Scenario2_Counter > 0) && (speed == 120))
-//     {
-//         Scenario2_Counter--;
-//     }
-//     else if((Scenario2_Counter == 0) && (speed == 120))
-//     {
-//           Temperature_Rise_GDB = true;
-//     }
-//     if(Temperature_Rise_GDB)
-//     {
-//        temperature = Simulate_Sensor::Simulate_TemperatureSensor();
-//     }
+    scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = true;
+    scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
+}
 
-//     return temperature;
-// }
+
+void Simulate_Sensor::Scenario_Init_state(void)
+{
+    std::cout << "check system Init " << std::endl;
+
+    if (InitFlag_GDB == false)
+    {
+        std::cout << "system Init " << std::endl;
+        Vehcile_speed_GF_U32 = 0;
+        diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB = false;
+        diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB = false;
+
+        Diagnostics_conditionsFlags.ACC_Slow_Down_Flag = false;
+        Diagnostics_conditionsFlags.ACC_Stopping_Flag = false;
+
+        scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
+        scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
+        scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = false;
+        scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = false;
+        scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = false;
+        InitFlag_GDB = true;
+    }
+}
+
+
+
+void Simulate_Sensor::Scenario_Handler(void)
+{
+    Simulate_Sensor::Scenario_Init_state();
+    switch (State)
+    {
+    case ScenarioStates::Scenario1:
+        Simulate_Sensor::Simulate_Scenario_1();
+        break;
+
+    case ScenarioStates::Scenario2:
+        std::cout << "Sc 2 " << std::endl;
+        Simulate_Sensor::Simulate_Scenario_2();
+    /* code */
+    break;
+
+    case ScenarioStates::Scenario3:
+        std::cout << "Sc 3" << std::endl;
+
+    /* code */
+    break;
+
+    default:
+        break;
+    }
+}
 
 Scenarios_Flags &Simulate_Sensor::Get_Scenarios_Flags_Instance(void)
 {

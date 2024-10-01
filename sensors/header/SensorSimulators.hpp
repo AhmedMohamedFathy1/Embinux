@@ -1,11 +1,11 @@
 #ifndef __SENSORSIMULATORS__H__
 #define __SENSORSIMULATORS__H__
 
-enum class VehicleState
+enum class ScenarioStates
 {
-    NormalDriving,
-    SlowingDown,
-    Stopping
+    Scenario1,
+    Scenario2,
+    Scenario3
 };
 
 struct Scenarios_Flags
@@ -29,13 +29,15 @@ class Simulate_Sensor
       float Simulate_RadarSensor(void);
 
       void Simulate_Scenario_1(void);
-      // float Simulate_Scenario_2(float &speed,float &temperature);
+      void Simulate_Scenario_2(void);
+      void Scenario_Init_state(void);
 
       static Scenarios_Flags &Get_Scenarios_Flags_Instance(void);
 
 
       float decelerate(float &speed,const int &Deceleration);
 
+      void Scenario_Handler(void);
 
 };
 

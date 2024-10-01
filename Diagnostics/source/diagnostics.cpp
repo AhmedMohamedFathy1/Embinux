@@ -52,11 +52,11 @@ void Diagnostics::ExcesiveSpeed_Check(void)
 {
     if(Sensors_data.SpeedSensor_data > MAX_ALLOWED_SPEED)
     {
-        std::cout << "Max Speed is :" << MAX_ALLOWED_SPEED << " km/h" << "\nCar Current Speed: " << Sensors_data.SpeedSensor_data << " km/h"<< std::endl;
+        std::cout << "Max Speed is :" << MAX_ALLOWED_SPEED << " km/h" << "\nCar Current Speed: " << static_cast<int>(Sensors_data.SpeedSensor_data) << " km/h"<< std::endl;
     }
     else
     {
-        std::cout << "Vehicle Speed: " << Sensors_data.SpeedSensor_data << " km/h"<< std::endl ;
+        std::cout << "Vehicle Speed: " <<static_cast<int>(Sensors_data.SpeedSensor_data)<< " km/h"<< std::endl ;
     }
 }
 
@@ -85,13 +85,10 @@ void Diagnostics::Temperature_Check(void)
     {
         if(Sensors_data.TemperatureSensor_data > MAX_MOTOR_TEMPERATURE)
         {
-            // Diagnostics::diagnostics_Flags. = true;
+            FlagState.Motor_Temperature_Is_High_GDB = true;
             std::cout << "Car is Overhrating " << "\nMotor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
         }
-        // else
-        // {
-        //     std::cout << "Normal Temperature: " << Sensors_data.TemperatureSensor_data << "°C"<< std::endl ;
-        // }
+
     }
 }
 
@@ -160,9 +157,7 @@ void Diagnostics::Run_Diagnostics(void)
 
     Diagnostics::LowFuel_Check();
 
-    Diagnostics::RadarDistance_Check();
-
-    
+    Diagnostics::RadarDistance_Check();  
 
     std::cout << std::endl;
 }
