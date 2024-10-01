@@ -1,8 +1,8 @@
 #ifndef SPEED_SESNSOR
 #define SPEED_SESNSOR
 
-#include "../header/Sensor.hpp"
-#include "../header/SensorSimulators.hpp"
+#include "Sensor.hpp"
+#include "SensorSimulators.hpp"
 
 class Speed_Sensor : public Sensor<float>
  {

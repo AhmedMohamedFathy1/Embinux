@@ -13,6 +13,7 @@ int main()
     Diagnostics diagnostics;
     AdaptiveCruiseControl ACC;
     Simulate_Sensor simulate_Sensor;
+    
     while(1)
     {
         simulate_Sensor.Simulate_Scenario_1();

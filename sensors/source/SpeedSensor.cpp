@@ -1,16 +1,16 @@
-#include "../header/SpeedSensor.hpp"
-#include "../header/SensorSimulators.hpp"
-
-#include "UpdateSesnors.hpp"
 #include <iostream>
+
+#include "SensorSimulators.hpp"
+#include "UpdateSesnors.hpp"
 #include "SpeedSensor.hpp"
+
 
 Sensors_data_t& sensors_data = Update_Sensors::GetSensorData();
 
 /*  Speed Sensor */
 float Speed_Sensor::Get_SensorData(void)
 {
-    std::cout << "get :" << Speed_Sensor::Vehicle_Speed_LF_U32_ << std::endl;
+  //  std::cout << "get :" << Speed_Sensor::Vehicle_Speed_LF_U32_ << std::endl;
 
    return Speed_Sensor::Vehicle_Speed_LF_U32_; 
  

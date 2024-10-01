@@ -1,6 +1,13 @@
 #ifndef __SENSORSIMULATORS__H__
 #define __SENSORSIMULATORS__H__
 
+enum class VehicleState
+{
+    NormalDriving,
+    SlowingDown,
+    Stopping
+};
+
 struct Scenarios_Flags
 {
   bool Scenario_Speed_Sesnor_Flag_LDB = false;
@@ -27,7 +34,7 @@ class Simulate_Sensor
       static Scenarios_Flags &Get_Scenarios_Flags_Instance(void);
 
 
-      void decelerate(float &speed,const int &Deceleration);
+      float decelerate(float &speed,const int &Deceleration);
 
 
 };

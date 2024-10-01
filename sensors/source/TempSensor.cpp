@@ -19,3 +19,8 @@ Temperature_Sensor Temperature_Sensor::Get_TemperatureSensor_Instance(void)
     static Temperature_Sensor temperatureSensor_Instance;
     return temperatureSensor_Instance ;
 }
+
+Temperature_Sensor::Temperature_Sensor()
+{
+    Temperature_LF_U32_ = 95;
+}

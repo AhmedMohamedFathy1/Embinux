@@ -32,8 +32,6 @@ class Update_Sensors
 
             static Sensors_data_t Sensors_data;
 
-
-
         public:
             static Sensors_data_t& GetSensorData(void);
 

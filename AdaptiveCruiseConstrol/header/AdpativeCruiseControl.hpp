@@ -25,6 +25,13 @@
 
 #define  DISTANCE_TO_STOP  35
 
+struct ACC_ConditionsFlags
+{
+  bool ACC_Slow_Down_Flag = false;
+  bool ACC_Stopping_Flag = false;
+};
+
+
 class AdaptiveCruiseControl 
 {
     protected: 
@@ -32,12 +39,17 @@ class AdaptiveCruiseControl
       Update_Sensors update_Sensor; // has-a Compistion is better as i just want to access data from this class not all data 
       Speed_Sensor ACC_speed_Sensor = Speed_Sensor::Get_SpeedSensor_Instance();
       Diagnostics diagnostics; 
+      
 
     public:
+    static ACC_ConditionsFlags ACC_conditionsflags_PDB;
+
      void Speed_Control(void);
      void MotorTemperature_Check(void);
 
      void AdpativeCruiseControl_Manager(void);
+
+     static ACC_ConditionsFlags & Get_ACC_FlagInstance(void); 
 };
 
 
