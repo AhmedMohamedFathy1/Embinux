@@ -66,11 +66,12 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                     break;
                 }
                 std::cout << "Decelerating..." << std::endl;
+                return speed;
             }
 
             else if(Deceleration == SS_STOPPING_DECELERATION)
             {
-                if(static_cast<int>(speed) < SS_TOTAL_STOP)
+                if(static_cast<int>(speed) <= SS_TOTAL_STOP)
                 {
                     speed = SS_TOTAL_STOP;
                     std::cout << "Car Stopped" << std::endl;
@@ -87,14 +88,17 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                     break;
                 }
                 std::cout << "Stopping..." << std::endl;
+                return speed;
+
             }
             else
             {
             break;
             }
-            return speed;
         }
     }
+    return speed;
+
 }
 
 float Vehcile_speed_GF_U32 = 0;  // Initial speed
@@ -143,6 +147,8 @@ float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime)
 
 int Simulate_Sensor::Simulate_TemperatureSensor(void) 
 {
+    static float Motor_Temperature = 70;  // Initial temp
+
     if(scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB == true)
     {
         // Set up random number generation
@@ -151,7 +157,6 @@ int Simulate_Sensor::Simulate_TemperatureSensor(void)
         std::uniform_int_distribution<> TempertureIncreaseDist(1, 10);  // temp increase by 1-10 units
         std::uniform_int_distribution<> TempertureDecreaseDist(1, 10);  // temp decrease by 1-10 units
 
-        static float Motor_Temperature = 70;  // Initial temp
         if(diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true)
         {
             if(Diagnostics_conditionsFlags.ACC_Stopping_Flag == true)
@@ -168,12 +173,15 @@ int Simulate_Sensor::Simulate_TemperatureSensor(void)
                 Motor_Temperature = MAX_ALLOWED_MOTOR_TEMPERATURE;
             }
         }
-        return Motor_Temperature;
     }
+    return Motor_Temperature;
+
 }
 
 float Simulate_Sensor::Simulate_BatterySensor(void) 
 {
+    static float Battery_Voltage = 12.9f;  // Initial speed
+
     if(scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB == true)
     {
         static int counter = 4;
@@ -182,7 +190,6 @@ float Simulate_Sensor::Simulate_BatterySensor(void)
         std::mt19937 gen(rd());  // Mersenne Twister engine
         std::uniform_real_distribution<float> BatteryVoltageDecreaseDist(0.05, 0.1);
 
-        static float Battery_Voltage = 12.9f;  // Initial speed
         // Voltage decrease
         if (Battery_Voltage <= MAX_VOLTAGE) 
         {
@@ -198,8 +205,9 @@ float Simulate_Sensor::Simulate_BatterySensor(void)
             InitFlag_GDB = false;
             State = ScenarioStates::None;  
         }
-        return Battery_Voltage;
     }
+    return Battery_Voltage;
+
 }
 
 bool FuelFlag = false;
@@ -207,6 +215,8 @@ bool FuelFlag = false;
 
 int Simulate_Sensor::Simulate_FuelSensor(void) 
 {
+   static int Fuel_Tank = 37;  // Max Tank Start 
+
    if(scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB == true)
    {
         static int FuelCounter = 3;
@@ -216,7 +226,6 @@ int Simulate_Sensor::Simulate_FuelSensor(void)
 
         std::uniform_real_distribution<float> FuelDecreaseDis(1,5);
 
-        static int Fuel_Tank = 37;  // Max Tank Start 
         // fuel decrease
         if ((Fuel_Tank <= MAX_FUEL) && (FuelFlag == false)) // 4 as now we will refuel 
         {
@@ -238,13 +247,15 @@ int Simulate_Sensor::Simulate_FuelSensor(void)
             InitFlag_GDB = false;
             State = ScenarioStates::Scenario4;  
         }
-        
-        return Fuel_Tank;
    }
+    return Fuel_Tank;
+
 }
 
 float Simulate_Sensor::Simulate_RadarSensor(void) 
-{
+{        
+    static float RadarDistance = 100;  // Initial Distance in m 
+
     if(scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB == true)
     {
         static int RadarCounter = 3;
@@ -255,7 +266,6 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
         std::uniform_real_distribution<float> RadarIncreaseDist(1, 5);
         std::uniform_real_distribution<float> RadarDecreaseDist(1, 5);
 
-        static float RadarDistance = 100;  // Initial Distance in m 
         // Radar increase
         if (RadarDistance <= MAX_RADAR_DISTANCE) 
         {
@@ -280,9 +290,9 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
                 RadarDistance = MAX_RADAR_DISTANCE;  // Ensure speed doesn't go below 0
             }
         }
-        return RadarDistance;
-
     }
+    return RadarDistance;
+
 }
 
 // Scenario 1 : Move in const speed and obstacle found (1 - speed down  - 2 - Stop)
@@ -336,7 +346,28 @@ void Simulate_Sensor::Scenario_Init_state(void)
 
     if (InitFlag_GDB == false)
     {
-        std::cout << "system Init " << std::endl;
+        switch (State)
+        {
+        case ScenarioStates::Scenario1:
+            std::cout << " ***************************  Scenario 1 ***************************" << std::endl;
+            break;
+
+        case ScenarioStates::Scenario2:
+            std::cout << " ***************************  Scenario 2 ***************************" << std::endl;
+            break;
+
+        case ScenarioStates::Scenario3:
+            std::cout << " ***************************  Scenario 3 ***************************" << std::endl;
+            break;
+
+        case ScenarioStates::Scenario4:
+            std::cout << " ***************************  Scenario 4 ***************************" << std::endl;
+            break;
+
+        default:
+            std::cout << " ***************************  Simulation Finished ***************************" << std::endl;
+            break;
+        }
         Vehcile_speed_GF_U32 = 0;
         diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB = false;
         diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB = false;
@@ -366,24 +397,19 @@ void Simulate_Sensor::Scenario_Handler(void)
         break;
 
     case ScenarioStates::Scenario2:
-        std::cout << "Sc 2 " << std::endl;
         Simulate_Sensor::Simulate_Scenario_2();
     /* code */
     break;
 
     case ScenarioStates::Scenario3:
         Simulate_Sensor::Simulate_Scenario_3();
-        std::cout << "Sc 3" << std::endl;
         break;
 
     case ScenarioStates::Scenario4:
         Simulate_Sensor::Simulate_Scenario_4();
-        std::cout << "Sc 4" << std::endl;
         break;
 
     default:
-        std::cout << "Default" << std::endl;
-
         break;
     }
 }
