@@ -2,6 +2,9 @@
 
 #include "diagnostics.hpp"
 #include "SensorSimulators.hpp"
+#include "Logger.hpp"
+
+
 
 Scenarios_Flags &diagnostics_Scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance();
 
@@ -43,6 +46,9 @@ bool Diagnostics_Flags::Vehcile_Stop_Speed_Up_Is_High_GDB = false;
 
 Diagnostics_Flags  & FlagState = Diagnostics::Get_FlagsState();
 
+
+VehicleLogger& Diagnosticslogger = VehicleLogger::Logger_GetInstance("vehicle_log.txt");
+
 /**
  * @brief Check if speed increase over speed limit  
  * 
@@ -53,10 +59,12 @@ void Diagnostics::ExcesiveSpeed_Check(void)
 {
     if(Sensors_data.SpeedSensor_data > MAX_ALLOWED_SPEED)
     {
+        Diagnosticslogger.logData("Max Speed is :" + MAX_ALLOWED_SPEED + std::to_string(static_cast<int>(Sensors_data.SpeedSensor_data)) + " km/h");
         std::cout << "Max Speed is :" << MAX_ALLOWED_SPEED << " km/h" << "\nCar Current Speed: " << static_cast<int>(Sensors_data.SpeedSensor_data) << " km/h"<< std::endl;
     }
     else
     {
+        Diagnosticslogger.logData("Vehicle Speed: " + std::to_string(static_cast<int>(Sensors_data.SpeedSensor_data)) + " km/h");
         std::cout << "Vehicle Speed: " <<static_cast<int>(Sensors_data.SpeedSensor_data)<< " km/h"<< std::endl ;
     }
 }
@@ -75,6 +83,8 @@ void Diagnostics::RadarDistance_Check(void)
             //   Diagnostics_Flags::ObstacleFound_Is_High_GDB = true;
             FlagState.Vehcile_Stop_Speed_Up_Is_High_GDB = true; // flag to stop vehicle to speed up
             FlagState.ObstacleFound_Is_High_GDB = true;
+            Diagnosticslogger.logData("Obstacle Found ");
+
             std::cout << "Obstacle Found " << std::endl;
         }
     }
@@ -88,6 +98,8 @@ void Diagnostics::Temperature_Check(void)
         {
             FlagState.Vehcile_Stop_Speed_Up_Is_High_GDB = true; // flag to stop vehicle to speed up
             FlagState.Motor_Temperature_Is_High_GDB = true;
+            Diagnosticslogger.logData("Car is Overhrating \nMotor Temperature is: "+ std::to_string(Sensors_data.TemperatureSensor_data)+" °C:");
+
             std::cout << "Car is Overhrating " << "\nMotor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
         }
 
@@ -102,18 +114,26 @@ void Diagnostics::Battery_Check(void)
 
         if((Sensors_data.BatterySensor_data <= BATTERY_FULLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_PARTIALLY_CHARGED))
         {
+            Diagnosticslogger.logData("Battery is Partially charged  ");
+            
             std::cout <<"Battery is Partially charged " << std::endl;
         }
         else if((Sensors_data.BatterySensor_data <= BATTERY_PARTIALLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_LOW_CHARGE_CHARGED))
         {
+            Diagnosticslogger.logData("Battery is Low Charge ");
+
             std::cout <<"Battery is Low Charge " << std::endl;
         }
         else if((Sensors_data.BatterySensor_data <= BATTERY_LOW_CHARGE_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_DEAD_CHARGED))
         {
+            Diagnosticslogger.logData("Battery is Discharged ");
+
             std::cout <<"Battery is Discharged " << std::endl;
         }
         else if(Sensors_data.BatterySensor_data < BATTERY_DEAD_CHARGED)
         {
+            Diagnosticslogger.logData("Battery is Dead ");
+
             std::cout <<"Battery is Dead " << std::endl;
         }
     }
@@ -131,6 +151,8 @@ void Diagnostics::LowFuel_Check(void)
         
         if(Sensors_data.FuelCapacity < MIN_FUEL_CAPACITY)
         {
+            Diagnosticslogger.logData("Low Fuel ");
+
             std::cout <<"Low Fuel" << std::endl;
         }
     }

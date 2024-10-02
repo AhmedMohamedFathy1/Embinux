@@ -2,6 +2,11 @@
 
 #include "AdpativeCruiseControl.hpp"
 
+#include "Logger.hpp"
+
+
+VehicleLogger& ACC_logger = VehicleLogger::Logger_GetInstance("vehicle_log.txt");
+
 
 #define MAX_MOTOR_TEMPERATURE 110 
 // ACC_ConditionsFlags AdaptiveCruiseControl::ACC_conditionsflags_PDB;
@@ -16,7 +21,9 @@ ACC_ConditionsFlags ACC_conditionsFlags = AdaptiveCruiseControl::Get_ACC_FlagIns
 
 void AdaptiveCruiseControl::Speed_Control()
 {
-    std::cout << "sensor data : " << Sensors_data.RadarSensor_data << " , DISTANCE_TO_SLOW_DOWN: " << DISTANCE_TO_SLOW_DOWN << " , DISTANCE_TO_STOP: " << DISTANCE_TO_STOP << std::endl;
+    ACC_logger.logData("Sensor data : " + std::to_string( Sensors_data.RadarSensor_data) + " m , DISTANCE_TO_SLOW_DOWN:" + "55" +  " , DISTANCE_TO_STOP: " + "35" + " m");
+    
+    std::cout << "Sensor data : " << Sensors_data.RadarSensor_data <<" m , DISTANCE_TO_SLOW_DOWN: " << DISTANCE_TO_SLOW_DOWN << " m , DISTANCE_TO_STOP: " << DISTANCE_TO_STOP <<" m" << std::endl;
     if((Sensors_data.RadarSensor_data < DISTANCE_TO_SLOW_DOWN) && ((Sensors_data.RadarSensor_data > DISTANCE_TO_STOP)))
     {
         ACC_conditionsFlags.ACC_Stopping_Flag = false;

@@ -107,6 +107,9 @@
     "chrono": "cpp",
     "ratio": "cpp",
     "semaphore": "cpp",
-    "stop_token": "cpp"
+    "stop_token": "cpp",
+    "fstream": "cpp",
+    "iomanip": "cpp",
+    "sstream": "cpp"
   }
 }

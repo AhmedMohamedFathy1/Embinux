@@ -6,11 +6,23 @@
 #include "diagnostics.hpp"
 #include "SpeedSensor.hpp"
 #include "AdpativeCruiseControl.hpp"
+#include "Logger.hpp"
+
 
 Diagnostics diagnostics; 
+
 Speed_Sensor & speed_Sensor = Speed_Sensor::Get_SpeedSensor_Instance();
 
 Scenarios_Flags &scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance();
+
+ACC_ConditionsFlags Diagnostics_conditionsFlags = AdaptiveCruiseControl::Get_ACC_FlagInstance();
+
+Sensors_data_t& SS_sensors_data = Update_Sensors::GetSensorData();
+
+ScenarioStates State = ScenarioStates::Scenario1;
+
+VehicleLogger& SS_logger = VehicleLogger::Logger_GetInstance("vehicle_log.txt");
+
 
  /* Vehcile Speed */
 #define VEHICLE_MAX_SPEED 180  
@@ -42,11 +54,7 @@ Scenarios_Flags &scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance
 
 bool InitFlag_GDB = false;
 
-ACC_ConditionsFlags Diagnostics_conditionsFlags = AdaptiveCruiseControl::Get_ACC_FlagInstance();
 
-Sensors_data_t& SS_sensors_data = Update_Sensors::GetSensorData();
-
-ScenarioStates State = ScenarioStates::Scenario1;
 
 float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
 { 
@@ -65,6 +73,7 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                     speed = 50;
                     break;
                 }
+                SS_logger.logData("Decelerating...");
                 std::cout << "Decelerating..." << std::endl;
                 return speed;
             }
@@ -74,7 +83,8 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                 if(static_cast<int>(speed) <= SS_TOTAL_STOP)
                 {
                     speed = SS_TOTAL_STOP;
-                    std::cout << "Car Stopped" << std::endl;
+                    SS_logger.logData("Car Stoped");
+                    std::cout << "Car Stoped" << std::endl;
                     if (diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true) 
                     {
                         InitFlag_GDB = false;
@@ -87,6 +97,8 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                     }
                     break;
                 }
+                SS_logger.logData("Stopping...");
+
                 std::cout << "Stopping..." << std::endl;
                 return speed;
 
@@ -349,22 +361,31 @@ void Simulate_Sensor::Scenario_Init_state(void)
         switch (State)
         {
         case ScenarioStates::Scenario1:
+            SS_logger.logData("***************************  Scenario 1 ***************************");
             std::cout << " ***************************  Scenario 1 ***************************" << std::endl;
             break;
 
         case ScenarioStates::Scenario2:
+            SS_logger.logData("***************************  Scenario 2 ***************************");
+
             std::cout << " ***************************  Scenario 2 ***************************" << std::endl;
             break;
 
         case ScenarioStates::Scenario3:
+            SS_logger.logData("***************************  Scenario 3 ***************************");
+
             std::cout << " ***************************  Scenario 3 ***************************" << std::endl;
             break;
 
         case ScenarioStates::Scenario4:
+            SS_logger.logData("***************************  Scenario 4 ***************************");
+
             std::cout << " ***************************  Scenario 4 ***************************" << std::endl;
             break;
 
         default:
+            SS_logger.logData(" ***************************  Simulation Finished ***************************");
+
             std::cout << " ***************************  Simulation Finished ***************************" << std::endl;
             break;
         }

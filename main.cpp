@@ -12,8 +12,8 @@ int main()
   //  Sensors_data_t &Sensors_data = Update_Sensors::GetSensorData();
     Diagnostics diagnostics;
     AdaptiveCruiseControl ACC;
-    Simulate_Sensor simulate_Sensor;
-    
+    Simulate_Sensor simulate_Sensor; 
+
     while(1)
     {
         simulate_Sensor.Scenario_Handler();

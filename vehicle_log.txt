@@ -1,0 +1,509 @@
+Timestamp: 2024-10-03 01:24:19
+Vehicle Speed: 8 km/h
+Timestamp: 2024-10-03 01:24:20
+Vehicle Speed: 11 km/h
+Timestamp: 2024-10-03 01:24:21
+Vehicle Speed: 20 km/h
+Timestamp: 2024-10-03 01:24:22
+Vehicle Speed: 32 km/h
+Timestamp: 2024-10-03 01:24:23
+Vehicle Speed: 47 km/h
+Timestamp: 2024-10-03 01:24:24
+Vehicle Speed: 58 km/h
+Timestamp: 2024-10-03 01:24:25
+Vehicle Speed: 59 km/h
+Timestamp: 2024-10-03 01:24:26
+Vehicle Speed: 72 km/h
+Timestamp: 2024-10-03 01:24:27
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:27
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:28
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:28
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:29
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:29
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:30
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:30
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:31
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:31
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:32
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:32
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:33
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:33
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:34
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 01:24:34
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:35
+Vehicle Speed: 72 km/h
+Timestamp: 2024-10-03 01:24:35
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:36
+Vehicle Speed: 65 km/h
+Timestamp: 2024-10-03 01:24:36
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:37
+Vehicle Speed: 58 km/h
+Timestamp: 2024-10-03 01:24:38
+Vehicle Speed: 51 km/h
+Timestamp: 2024-10-03 01:24:39
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:24:40
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:24:41
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:24:41
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:42
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:24:42
+Obstacle Found 
+Timestamp: 2024-10-03 01:24:43
+Vehicle Speed: 41 km/h
+Timestamp: 2024-10-03 01:24:44
+Vehicle Speed: 32 km/h
+Timestamp: 2024-10-03 01:24:45
+Vehicle Speed: 23 km/h
+Timestamp: 2024-10-03 01:24:46
+Vehicle Speed: 14 km/h
+Timestamp: 2024-10-03 01:24:47
+Vehicle Speed: 5 km/h
+Timestamp: 2024-10-03 01:24:48
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:24:49
+Vehicle Speed: 5 km/h
+Timestamp: 2024-10-03 01:24:50
+Vehicle Speed: 9 km/h
+Timestamp: 2024-10-03 01:24:51
+Vehicle Speed: 13 km/h
+Timestamp: 2024-10-03 01:24:52
+Vehicle Speed: 23 km/h
+Timestamp: 2024-10-03 01:24:53
+Vehicle Speed: 26 km/h
+Timestamp: 2024-10-03 01:24:54
+Vehicle Speed: 29 km/h
+Timestamp: 2024-10-03 01:24:55
+Vehicle Speed: 36 km/h
+Timestamp: 2024-10-03 01:24:56
+Vehicle Speed: 47 km/h
+Timestamp: 2024-10-03 01:24:57
+Vehicle Speed: 48 km/h
+Timestamp: 2024-10-03 01:24:57
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:24:58
+Vehicle Speed: 39 km/h
+Timestamp: 2024-10-03 01:24:58
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:24:59
+Vehicle Speed: 30 km/h
+Timestamp: 2024-10-03 01:24:59
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:25:00
+Vehicle Speed: 21 km/h
+Timestamp: 2024-10-03 01:25:00
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:25:01
+Vehicle Speed: 12 km/h
+Timestamp: 2024-10-03 01:25:01
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:25:02
+Vehicle Speed: 3 km/h
+Timestamp: 2024-10-03 01:25:02
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:25:03
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:25:03
+Car is Overhrating 
+Motor Temperature is: 119.000000 °C:
+Timestamp: 2024-10-03 01:25:04
+Vehicle Speed: 6 km/h
+Timestamp: 2024-10-03 01:25:05
+Vehicle Speed: 15 km/h
+Timestamp: 2024-10-03 01:25:06
+Vehicle Speed: 26 km/h
+Timestamp: 2024-10-03 01:25:07
+Vehicle Speed: 33 km/h
+Timestamp: 2024-10-03 01:25:08
+Vehicle Speed: 34 km/h
+Timestamp: 2024-10-03 01:25:09
+Vehicle Speed: 37 km/h
+Timestamp: 2024-10-03 01:25:10
+Vehicle Speed: 43 km/h
+Timestamp: 2024-10-03 01:25:11
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:25:12
+Vehicle Speed: 62 km/h
+Timestamp: 2024-10-03 01:25:12
+Low Fuel 
+Timestamp: 2024-10-03 01:25:13
+Vehicle Speed: 70 km/h
+Timestamp: 2024-10-03 01:25:13
+Low Fuel 
+Timestamp: 2024-10-03 01:33:16
+***************************  Scenario 1 ***************************
+Timestamp: 2024-10-03 01:33:16
+Vehicle Speed: 15 km/h
+Timestamp: 2024-10-03 01:33:17
+Vehicle Speed: 20 km/h
+Timestamp: 2024-10-03 01:33:18
+Vehicle Speed: 32 km/h
+Timestamp: 2024-10-03 01:33:19
+Vehicle Speed: 46 km/h
+Timestamp: 2024-10-03 01:33:20
+Vehicle Speed: 51 km/h
+Timestamp: 2024-10-03 01:33:21
+Vehicle Speed: 53 km/h
+Timestamp: 2024-10-03 01:33:22
+Vehicle Speed: 65 km/h
+Timestamp: 2024-10-03 01:33:23
+Vehicle Speed: 76 km/h
+Timestamp: 2024-10-03 01:33:24
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:33:24
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:24
+Sensor data : 70.394722 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:25
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:33:25
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:25
+Sensor data : 65.539871 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:26
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:33:26
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:26
+Sensor data : 62.508522 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:27
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:33:27
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:27
+Sensor data : 58.240082 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:28
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:33:28
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:28
+Sensor data : 55.075001 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:29
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:33:29
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:29
+Sensor data : 53.894356 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:30
+Decelerating...
+Timestamp: 2024-10-03 01:33:30
+Vehicle Speed: 81 km/h
+Timestamp: 2024-10-03 01:33:30
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:30
+Sensor data : 51.627213 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:31
+Decelerating...
+Timestamp: 2024-10-03 01:33:31
+Vehicle Speed: 74 km/h
+Timestamp: 2024-10-03 01:33:31
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:31
+Sensor data : 49.641350 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:32
+Decelerating...
+Timestamp: 2024-10-03 01:33:32
+Vehicle Speed: 67 km/h
+Timestamp: 2024-10-03 01:33:32
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:32
+Sensor data : 47.764080 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:33
+Decelerating...
+Timestamp: 2024-10-03 01:33:33
+Vehicle Speed: 60 km/h
+Timestamp: 2024-10-03 01:33:33
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:33
+Sensor data : 44.042854 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:34
+Decelerating...
+Timestamp: 2024-10-03 01:33:34
+Vehicle Speed: 53 km/h
+Timestamp: 2024-10-03 01:33:34
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:34
+Sensor data : 39.360344 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:35
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:33:35
+Obstacle Found 
+Timestamp: 2024-10-03 01:33:35
+Sensor data : 34.667755 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:36
+Stopping...
+Timestamp: 2024-10-03 01:33:36
+Vehicle Speed: 41 km/h
+Timestamp: 2024-10-03 01:33:36
+Sensor data : 32.194412 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:37
+Stopping...
+Timestamp: 2024-10-03 01:33:37
+Vehicle Speed: 32 km/h
+Timestamp: 2024-10-03 01:33:37
+Sensor data : 29.368370 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:38
+Stopping...
+Timestamp: 2024-10-03 01:33:38
+Vehicle Speed: 23 km/h
+Timestamp: 2024-10-03 01:33:38
+Sensor data : 25.336655 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:39
+Stopping...
+Timestamp: 2024-10-03 01:33:39
+Vehicle Speed: 14 km/h
+Timestamp: 2024-10-03 01:33:39
+Sensor data : 25.000000 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:40
+Stopping...
+Timestamp: 2024-10-03 01:33:40
+Vehicle Speed: 5 km/h
+Timestamp: 2024-10-03 01:33:40
+Sensor data : 25.000000 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:41
+Car Stoped
+Timestamp: 2024-10-03 01:33:41
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:33:41
+Sensor data : 25.000000 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 01:33:42
+***************************  Scenario 2 ***************************
+Timestamp: 2024-10-03 01:33:42
+Vehicle Speed: 15 km/h
+Timestamp: 2024-10-03 01:33:43
+Vehicle Speed: 17 km/h
+Timestamp: 2024-10-03 01:33:44
+Vehicle Speed: 26 km/h
+Timestamp: 2024-10-03 01:33:45
+Vehicle Speed: 38 km/h
+Timestamp: 2024-10-03 01:33:46
+Vehicle Speed: 51 km/h
+Timestamp: 2024-10-03 01:33:47
+Vehicle Speed: 53 km/h
+Timestamp: 2024-10-03 01:33:48
+Vehicle Speed: 58 km/h
+Timestamp: 2024-10-03 01:33:48
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:49
+Stopping...
+Timestamp: 2024-10-03 01:33:49
+Vehicle Speed: 49 km/h
+Timestamp: 2024-10-03 01:33:49
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:50
+Stopping...
+Timestamp: 2024-10-03 01:33:50
+Vehicle Speed: 40 km/h
+Timestamp: 2024-10-03 01:33:50
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:51
+Stopping...
+Timestamp: 2024-10-03 01:33:51
+Vehicle Speed: 31 km/h
+Timestamp: 2024-10-03 01:33:51
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:52
+Stopping...
+Timestamp: 2024-10-03 01:33:52
+Vehicle Speed: 22 km/h
+Timestamp: 2024-10-03 01:33:52
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:53
+Stopping...
+Timestamp: 2024-10-03 01:33:53
+Vehicle Speed: 13 km/h
+Timestamp: 2024-10-03 01:33:53
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:54
+Stopping...
+Timestamp: 2024-10-03 01:33:54
+Vehicle Speed: 4 km/h
+Timestamp: 2024-10-03 01:33:54
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:55
+Car Stoped
+Timestamp: 2024-10-03 01:33:55
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:33:55
+Car is Overhrating 
+Motor Temperature is: 114.000000 °C:
+Timestamp: 2024-10-03 01:33:56
+***************************  Scenario 3 ***************************
+Timestamp: 2024-10-03 01:33:56
+Vehicle Speed: 14 km/h
+Timestamp: 2024-10-03 01:33:57
+Vehicle Speed: 26 km/h
+Timestamp: 2024-10-03 01:33:58
+Vehicle Speed: 37 km/h
+Timestamp: 2024-10-03 01:33:59
+Vehicle Speed: 46 km/h
+Timestamp: 2024-10-03 01:34:00
+Vehicle Speed: 49 km/h
+Timestamp: 2024-10-03 01:34:01
+Vehicle Speed: 54 km/h
+Timestamp: 2024-10-03 01:34:02
+Vehicle Speed: 69 km/h
+Timestamp: 2024-10-03 01:34:02
+Low Fuel 
+Timestamp: 2024-10-03 01:34:03
+Vehicle Speed: 76 km/h
+Timestamp: 2024-10-03 01:34:03
+Low Fuel 
+Timestamp: 2024-10-03 01:34:04
+Vehicle Speed: 85 km/h
+Timestamp: 2024-10-03 01:34:04
+Low Fuel 
+Timestamp: 2024-10-03 01:34:05
+Vehicle Speed: 98 km/h
+Timestamp: 2024-10-03 01:34:05
+Low Fuel 
+Timestamp: 2024-10-03 01:34:06
+Vehicle Speed: 103 km/h
+Timestamp: 2024-10-03 01:34:06
+Low Fuel 
+Timestamp: 2024-10-03 01:34:07
+***************************  Scenario 4 ***************************
+Timestamp: 2024-10-03 01:34:07
+Vehicle Speed: 12 km/h
+Timestamp: 2024-10-03 01:34:08
+Vehicle Speed: 25 km/h
+Timestamp: 2024-10-03 01:34:09
+Vehicle Speed: 37 km/h
+Timestamp: 2024-10-03 01:34:10
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 01:34:11
+Vehicle Speed: 59 km/h
+Timestamp: 2024-10-03 01:34:11
+Battery is Partially charged  
+Timestamp: 2024-10-03 01:34:12
+Vehicle Speed: 68 km/h
+Timestamp: 2024-10-03 01:34:12
+Battery is Partially charged  
+Timestamp: 2024-10-03 01:34:13
+Vehicle Speed: 76 km/h
+Timestamp: 2024-10-03 01:34:13
+Battery is Low Charge 
+Timestamp: 2024-10-03 01:34:14
+Vehicle Speed: 83 km/h
+Timestamp: 2024-10-03 01:34:14
+Battery is Low Charge 
+Timestamp: 2024-10-03 01:34:15
+Vehicle Speed: 88 km/h
+Timestamp: 2024-10-03 01:34:15
+Battery is Low Charge 
+Timestamp: 2024-10-03 01:34:16
+Vehicle Speed: 98 km/h
+Timestamp: 2024-10-03 01:34:16
+Battery is Discharged 
+Timestamp: 2024-10-03 01:34:17
+Vehicle Speed: 104 km/h
+Timestamp: 2024-10-03 01:34:17
+Battery is Discharged 
+Timestamp: 2024-10-03 01:34:18
+Vehicle Speed: 116 km/h
+Timestamp: 2024-10-03 01:34:18
+Battery is Discharged 
+Timestamp: 2024-10-03 01:34:19
+Vehicle Speed: 118 km/h
+Timestamp: 2024-10-03 01:34:19
+Battery is Discharged 
+Timestamp: 2024-10-03 01:34:20
+Vehicle Speed: 132 km/h
+Timestamp: 2024-10-03 01:34:20
+Battery is Discharged 
+Timestamp: 2024-10-03 01:34:21
+Vehicle Speed: 146 km/h
+Timestamp: 2024-10-03 01:34:21
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:22
+Vehicle Speed: 154 km/h
+Timestamp: 2024-10-03 01:34:22
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:23
+Vehicle Speed: 155 km/h
+Timestamp: 2024-10-03 01:34:23
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:24
+Vehicle Speed: 159 km/h
+Timestamp: 2024-10-03 01:34:24
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:25
+Vehicle Speed: 168 km/h
+Timestamp: 2024-10-03 01:34:25
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:26
+Vehicle Speed: 180 km/h
+Timestamp: 2024-10-03 01:34:26
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:27
+Vehicle Speed: 180 km/h
+Timestamp: 2024-10-03 01:34:27
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:28
+Vehicle Speed: 180 km/h
+Timestamp: 2024-10-03 01:34:28
+Battery is Dead 
+Timestamp: 2024-10-03 01:34:29
+ ***************************  Simulation Finished ***************************
+Timestamp: 2024-10-03 01:34:29
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:30
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:31
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:32
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:33
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:34
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:35
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:36
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:37
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:38
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:39
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:40
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:41
+Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 01:34:42
+Vehicle Speed: 0 km/h
