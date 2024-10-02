@@ -3,9 +3,11 @@
 
 enum class ScenarioStates
 {
+    None,
     Scenario1,
     Scenario2,
-    Scenario3
+    Scenario3,
+    Scenario4
 };
 
 struct Scenarios_Flags
@@ -30,6 +32,9 @@ class Simulate_Sensor
 
       void Simulate_Scenario_1(void);
       void Simulate_Scenario_2(void);
+      void Simulate_Scenario_3(void);
+      void Simulate_Scenario_4(void);
+
       void Scenario_Init_state(void);
 
       static Scenarios_Flags &Get_Scenarios_Flags_Instance(void);

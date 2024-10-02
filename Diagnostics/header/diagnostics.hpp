@@ -8,6 +8,10 @@ struct Diagnostics_Flags
   static bool ObstacleFound_Is_High_GDB;
 
   static bool Motor_Temperature_Is_High_GDB;
+
+  static bool Vehcile_Stop_Speed_Up_Is_High_GDB;
+
+
 };
 
 

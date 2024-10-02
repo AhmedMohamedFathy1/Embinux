@@ -25,12 +25,12 @@ Scenarios_Flags &scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance
 #define MAX_VOLTAGE 13.0f  //Max Battery Voltage 
 
 /* Battery Voltage*/
-#define MIN_FUEl  9  // Min Fuel to fire Alaram
+#define MIN_FUEl  6  // Min Fuel to fire Alaram
 #define MAX_FUEL  37  //Max Fuel Tank capacity 
 
 /* Radar Distance in meter*/
 #define MIN_RADAR_DISTANCE  25  // Min Fuel to fire Alaram
-#define MAX_RADAR_DISTANCE  350  // Min Fuel to fire Alaram
+#define MAX_RADAR_DISTANCE  350  // Max Fuel to fire Alaram
 
 #define SS_SPEED_DOWN_DECELERATION 7   // Average Decelartion on normal force braking is from 7-8
 #define SS_STOPPING_DECELERATION   9  // Average Decelartion on high force braking is from 9-10
@@ -65,7 +65,7 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                     speed = 50;
                     break;
                 }
-                std::cout << "Decelerating... Current speed: " << speed << " km/h" << std::endl;
+                std::cout << "Decelerating..." << std::endl;
             }
 
             else if(Deceleration == SS_STOPPING_DECELERATION)
@@ -86,7 +86,7 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
                     }
                     break;
                 }
-                std::cout << "Stopping... Current speed: " << speed << " km/h" << std::endl;
+                std::cout << "Stopping..." << std::endl;
             }
             else
             {
@@ -111,7 +111,6 @@ float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime)
         std::uniform_int_distribution<> speedIncreaseDist(1, 15);  // Speed increase by 1-10 units
         std::uniform_int_distribution<> speedDecreaseDist(1, 15);  // Speed decrease by 1-10 units
 
-        // Speed increase
         if((diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == true) || (diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB == true))
         {
             if(Diagnostics_conditionsFlags.ACC_Slow_Down_Flag == true)
@@ -123,9 +122,8 @@ float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime)
                 Vehcile_speed_GF_U32 = decelerate(SS_sensors_data.SpeedSensor_data,SS_STOPPING_DECELERATION);
             }
         }
-        if ((Vehcile_speed_GF_U32 < VEHICLE_MAX_SPEED)  && (diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB == false))
+        if ((Vehcile_speed_GF_U32 < VEHICLE_MAX_SPEED)  && (diagnostics.diagnostics_Flags.Vehcile_Stop_Speed_Up_Is_High_GDB == false))
         {
-            std::cout << "obs "  << std::endl;
             Vehcile_speed_GF_U32 += speedIncreaseDist(gen);  // Increase speed randomly
             if (Vehcile_speed_GF_U32 > VEHICLE_MAX_SPEED)
             {
@@ -178,30 +176,27 @@ float Simulate_Sensor::Simulate_BatterySensor(void)
 {
     if(scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB == true)
     {
-        static int counter = 3;
+        static int counter = 4;
         // Set up random number generation
         std::random_device rd;   // Seed source
         std::mt19937 gen(rd());  // Mersenne Twister engine
         std::uniform_real_distribution<float> BatteryVoltageDecreaseDist(0.05, 0.1);
 
         static float Battery_Voltage = 12.9f;  // Initial speed
-        // Battery_Voltage increase
-        // Hold at max Battery_Voltage
-        if(counter>0)
-        {
-            counter--;
-        }
-
-        // Speed decrease
-        else if (Battery_Voltage <= MAX_VOLTAGE) 
+        // Voltage decrease
+        if (Battery_Voltage <= MAX_VOLTAGE) 
         {
             Battery_Voltage -= BatteryVoltageDecreaseDist(gen);  // Decrease speed randomly
-            if (Battery_Voltage < MIN_VOLTAGE) 
+            if ((Battery_Voltage < MIN_VOLTAGE) && (counter > 0))
             {
-                Battery_Voltage = MIN_VOLTAGE;  // Ensure speed doesn't go below 0
+                Battery_Voltage = MIN_VOLTAGE;  // Ensure Voltage doesn't go below 11.5f
+                counter--;
             }
-            counter = 2;
-
+        }
+        if(counter == 0)
+        {
+            InitFlag_GDB = false;
+            State = ScenarioStates::None;  
         }
         return Battery_Voltage;
     }
@@ -219,39 +214,34 @@ int Simulate_Sensor::Simulate_FuelSensor(void)
         std::random_device rd; 
         std::mt19937 gen(rd());
 
-        std::uniform_real_distribution<float> FuelIncreaseDis(1,3);
-        std::uniform_real_distribution<float> FuelDecreaseDis(1,3);
+        std::uniform_real_distribution<float> FuelDecreaseDis(1,5);
 
         static int Fuel_Tank = 37;  // Max Tank Start 
         // fuel decrease
         if ((Fuel_Tank <= MAX_FUEL) && (FuelFlag == false)) // 4 as now we will refuel 
         {
             Fuel_Tank -= FuelDecreaseDis(gen);  // Decrease fuel randomly
-            if (Fuel_Tank < 4) 
+            if (Fuel_Tank < MIN_FUEl) 
             {
-                Fuel_Tank = 4;  // Ensure fuel doesn't go below 4
+                Fuel_Tank = MIN_FUEl;  // Ensure fuel doesn't go below 4
                 FuelFlag = true;
             }
         }
 
         // Hold at MAX_FUEL
-        else if((Fuel_Tank >= MAX_FUEL )&& (FuelCounter>0))
+        else if((Fuel_Tank <= MIN_FUEl )&& (FuelCounter>0))
         {
             FuelCounter--;
         }
-        // fuel increase
-        else if ((Fuel_Tank < MAX_FUEL)  && (FuelFlag == true))
+        if(FuelCounter == 0 )
         {
-            Fuel_Tank += FuelIncreaseDis(gen);  // Increase fuel randomly
-            if (Fuel_Tank > MAX_FUEL)
-            {
-                Fuel_Tank = MAX_FUEL;
-            }
+            InitFlag_GDB = false;
+            State = ScenarioStates::Scenario4;  
         }
+        
         return Fuel_Tank;
    }
 }
-bool RadarFlag = false;
 
 float Simulate_Sensor::Simulate_RadarSensor(void) 
 {
@@ -266,7 +256,7 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
         std::uniform_real_distribution<float> RadarDecreaseDist(1, 5);
 
         static float RadarDistance = 100;  // Initial Distance in m 
-        // Battery_Voltage increase
+        // Radar increase
         if (RadarDistance <= MAX_RADAR_DISTANCE) 
         {
             RadarDistance -= RadarDecreaseDist(gen);  // Decrease Distance randomly
@@ -320,10 +310,29 @@ void Simulate_Sensor::Simulate_Scenario_2(void)
     scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
 }
 
+void Simulate_Sensor::Simulate_Scenario_3(void)
+{
+    scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = false;
+
+    scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = true;
+    scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
+}
+
+void Simulate_Sensor::Simulate_Scenario_4(void)
+{
+    scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = false;
+
+    scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = true;
+    scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
+}
 
 void Simulate_Sensor::Scenario_Init_state(void)
 {
-    std::cout << "check system Init " << std::endl;
+    // std::cout << "check system Init " << std::endl;
 
     if (InitFlag_GDB == false)
     {
@@ -331,6 +340,7 @@ void Simulate_Sensor::Scenario_Init_state(void)
         Vehcile_speed_GF_U32 = 0;
         diagnostics.diagnostics_Flags.ObstacleFound_Is_High_GDB = false;
         diagnostics.diagnostics_Flags.Motor_Temperature_Is_High_GDB = false;
+        diagnostics.diagnostics_Flags.Vehcile_Stop_Speed_Up_Is_High_GDB = false;
 
         Diagnostics_conditionsFlags.ACC_Slow_Down_Flag = false;
         Diagnostics_conditionsFlags.ACC_Stopping_Flag = false;
@@ -362,12 +372,18 @@ void Simulate_Sensor::Scenario_Handler(void)
     break;
 
     case ScenarioStates::Scenario3:
+        Simulate_Sensor::Simulate_Scenario_3();
         std::cout << "Sc 3" << std::endl;
+        break;
 
-    /* code */
-    break;
+    case ScenarioStates::Scenario4:
+        Simulate_Sensor::Simulate_Scenario_4();
+        std::cout << "Sc 4" << std::endl;
+        break;
 
     default:
+        std::cout << "Default" << std::endl;
+
         break;
     }
 }

@@ -42,7 +42,7 @@ void AdaptiveCruiseControl::Speed_Control()
 */
 void AdaptiveCruiseControl::MotorTemperature_Check(void)
 {
-    std::cout << "Temp data : " << Sensors_data.TemperatureSensor_data << std::endl;
+    //std::cout << "Temp data : " << Sensors_data.TemperatureSensor_data << std::endl;
     if(Sensors_data.TemperatureSensor_data > MAX_MOTOR_TEMPERATURE)
     {
         ACC_conditionsFlags.ACC_Stopping_Flag = true;

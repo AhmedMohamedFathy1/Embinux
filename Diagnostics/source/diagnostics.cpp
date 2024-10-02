@@ -38,6 +38,7 @@ Diagnostics_Flags Diagnostics::diagnostics_Flags;
 // Initialize the static members of Diagnostics_Flags
 bool Diagnostics_Flags::ObstacleFound_Is_High_GDB = false;
 bool Diagnostics_Flags::Motor_Temperature_Is_High_GDB = false;
+bool Diagnostics_Flags::Vehcile_Stop_Speed_Up_Is_High_GDB = false;
 
 
 Diagnostics_Flags  & FlagState = Diagnostics::Get_FlagsState();
@@ -72,8 +73,8 @@ void Diagnostics::RadarDistance_Check(void)
         if(((SpeedValue_m_s / 7)+10) > Sensors_data.RadarSensor_data)
         {
             //   Diagnostics_Flags::ObstacleFound_Is_High_GDB = true;
+            FlagState.Vehcile_Stop_Speed_Up_Is_High_GDB = true; // flag to stop vehicle to speed up
             FlagState.ObstacleFound_Is_High_GDB = true;
-            
             std::cout << "Obstacle Found " << std::endl;
         }
     }
@@ -85,6 +86,7 @@ void Diagnostics::Temperature_Check(void)
     {
         if(Sensors_data.TemperatureSensor_data > MAX_MOTOR_TEMPERATURE)
         {
+            FlagState.Vehcile_Stop_Speed_Up_Is_High_GDB = true; // flag to stop vehicle to speed up
             FlagState.Motor_Temperature_Is_High_GDB = true;
             std::cout << "Car is Overhrating " << "\nMotor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
         }
@@ -97,11 +99,7 @@ void Diagnostics::Battery_Check(void)
     if(diagnostics_Scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB == true)
     {
         std::cout <<Sensors_data.BatterySensor_data << " v" << std::endl;
-    
-        // if(Sensors_data.BatterySensor_data > BATTERY_FULLY_CHARGED)
-        // {
-        //     std::cout <<"Battery is fully charged " << std::endl;
-        // }
+
         if((Sensors_data.BatterySensor_data <= BATTERY_FULLY_CHARGED) && (Sensors_data.BatterySensor_data >= BATTERY_PARTIALLY_CHARGED))
         {
             std::cout <<"Battery is Partially charged " << std::endl;
