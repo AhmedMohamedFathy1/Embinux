@@ -58,6 +58,13 @@ VehicleLogger& SS_logger = VehicleLogger::Logger_GetInstance("vehicle_log.txt");
 bool InitFlag_GDB = false;
 
 
+/**
+ * @brief Decelerate the speed according to full stop or slow down flags
+ * 
+ * @param speed 
+ * @param Deceleration 
+ * @return float 
+ */
 
 float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
 { 
@@ -117,7 +124,11 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
 }
 
 float Vehcile_speed_GF_U32 = 0;  // Initial speed
-
+/**
+ * @brief Simulate spped sensor by increasing or decreasing value when flag is set 
+ * 
+ * @return float 
+ */
 
 float Simulate_Sensor::Simulate_SpeedSensor(void) 
 {
@@ -156,6 +167,11 @@ float Simulate_Sensor::Simulate_SpeedSensor(void)
    return Vehcile_speed_GF_U32; 
 }
 
+/**
+ * @brief Simulate Radar sensor by decreasing value when flag is set 
+ * 
+ * @return float 
+ */
 float Simulate_Sensor::Simulate_RadarSensor(void) 
 {        
     static float RadarDistance = 100;  // Initial Distance in m 
@@ -197,7 +213,11 @@ float Simulate_Sensor::Simulate_RadarSensor(void)
     }
     return RadarDistance;
 }
-
+/**
+ * @brief Simulate Temperature sensor by increasing value when flag is set 
+ * 
+ * @return int 
+ */
 
 int Simulate_Sensor::Simulate_TemperatureSensor(void) 
 {
@@ -231,7 +251,11 @@ int Simulate_Sensor::Simulate_TemperatureSensor(void)
     return Motor_Temperature;
 
 }
-
+/**
+ * @brief Simulate battery sensor by decreasding value when flag is set 
+ * 
+ * @return float 
+ */
 float Simulate_Sensor::Simulate_BatterySensor(void) 
 {
     static float Battery_Voltage = 12.9f;  // Initial speed
@@ -266,7 +290,11 @@ float Simulate_Sensor::Simulate_BatterySensor(void)
 
 bool FuelFlag = false;
 
-
+/**
+ * @brief Simulate fuel sensor by decreasding value when flag is set 
+ * 
+ * @return int 
+ */
 int Simulate_Sensor::Simulate_FuelSensor(void) 
 {
    static int Fuel_Tank = 37;  // Max Tank Start 
@@ -306,7 +334,11 @@ int Simulate_Sensor::Simulate_FuelSensor(void)
 
 }
 
-// Scenario 1 : Move in const speed and obstacle found (1 - speed down  - 2 - Stop)
+
+/**
+ * @brief : Move in const speed and obstacle found (1 - speed down  - 2 - Stop)
+ * 
+ */
 void Simulate_Sensor::Simulate_Scenario_1() 
 {
     scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
@@ -318,9 +350,10 @@ void Simulate_Sensor::Simulate_Scenario_1()
 }
 
 /**
- * brief : increase speed to 120 km/h and while and then increase motor temperature above normal so car must stop
- *
+ * @brief:  increase speed to 120 km/h and while and then increase motor temperature above normal so car must stop
+ * 
  */
+
 void Simulate_Sensor::Simulate_Scenario_2(void)
 {
     scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
@@ -331,6 +364,10 @@ void Simulate_Sensor::Simulate_Scenario_2(void)
     scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
 }
 
+/**
+ * @brief  Run Sceanrio to check on Low Fuel
+ * 
+ */
 void Simulate_Sensor::Simulate_Scenario_3(void)
 {
     scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
@@ -341,6 +378,10 @@ void Simulate_Sensor::Simulate_Scenario_3(void)
     scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
 }
 
+/**
+ * @brief  Run Sceanrio to check on Low Battery
+ * 
+ */
 void Simulate_Sensor::Simulate_Scenario_4(void)
 {
     scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
@@ -351,6 +392,10 @@ void Simulate_Sensor::Simulate_Scenario_4(void)
     scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
 }
 
+/**
+ * @brief Run Sceanrio to check on excessive speed 
+ * 
+ */
 void Simulate_Sensor::Simulate_Scenario_5(void)
 {
     scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
@@ -361,6 +406,10 @@ void Simulate_Sensor::Simulate_Scenario_5(void)
     scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
 }
 
+/**
+ * @brief Init System inly after scenario finished 
+ * 
+ */
 void Simulate_Sensor::Scenario_Init_state(void)
 {
     // std::cout << "check system Init " << std::endl;
@@ -426,7 +475,10 @@ void Simulate_Sensor::Scenario_Init_state(void)
     }
 }
 
-
+/**
+ * @brief Control Which Scenario to start 
+ * 
+ */
 
 void Simulate_Sensor::Scenario_Handler(void)
 {
@@ -459,6 +511,12 @@ void Simulate_Sensor::Scenario_Handler(void)
     }
 }
 
+/**
+ * @brief  singleton design by only return one instance fromthe struct all over the project
+
+ * 
+ * @return Scenarios_Flags& 
+ */
 Scenarios_Flags &Simulate_Sensor::Get_Scenarios_Flags_Instance(void)
 {
     static Scenarios_Flags scenarios_Flags;

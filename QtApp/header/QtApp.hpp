@@ -7,6 +7,7 @@
 // Declare the struct and its static members
 struct QtFlags
 {
+    // Flags to toggle labels 
     static bool Qt_Obstacle_Flag_GDB;
     static bool Qt_Temperature_Flag_GDB;
     static bool Qt_Fuel_Flag_GDB;
@@ -37,10 +38,10 @@ private slots:
 private:
     int speed;              // Variable to store the speed
     bool isToggled;
-    bool Obstacle_isToggled;         // Boolean flag for toggling
-    bool Temp_isToggled;         // Boolean flag for toggling
-    bool Fuel_isToggled;         // Boolean flag for toggling
-    bool Battery_isToggled;         // Boolean flag for toggling
+    bool Obstacle_isToggled;        
+    bool Temp_isToggled;         
+    bool Fuel_isToggled;        
+    bool Battery_isToggled;      
     bool Speed_isToggled;
 
 };

@@ -19,6 +19,10 @@ Diagnostics_Flags ACC_diagnostics_flags = Diagnostics::Get_FlagsState();
 
 ACC_ConditionsFlags ACC_conditionsFlags = AdaptiveCruiseControl::Get_ACC_FlagInstance();
 
+/**
+ * @brief if there is obstacle set to slow down or to stop
+ * 
+ */
 void AdaptiveCruiseControl::Speed_Control()
 {
     ACC_logger.logData("Sensor data : " + std::to_string( Sensors_data.RadarSensor_data) + " m , DISTANCE_TO_SLOW_DOWN:" + "55" +  " , DISTANCE_TO_STOP: " + "35" + " m");
@@ -38,7 +42,7 @@ void AdaptiveCruiseControl::Speed_Control()
 
 
 /**
-* @brief 
+* @brief check of motor temp increase set flag to stop car 
 * 
 */
 void AdaptiveCruiseControl::MotorTemperature_Check(void)
@@ -61,7 +65,11 @@ void AdaptiveCruiseControl::AdpativeCruiseControl_Manager(void)
     AdaptiveCruiseControl::MotorTemperature_Check();
     }
 }
-
+/**
+ * @brief  singleton design by only return one instance from the class all over the project
+ * 
+ * @return ACC_ConditionsFlags& 
+ */
 ACC_ConditionsFlags &AdaptiveCruiseControl::Get_ACC_FlagInstance(void)
 {
     static ACC_ConditionsFlags ACC_conditionsflags_PDB;

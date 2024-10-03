@@ -44,7 +44,11 @@ VehicleApp &VehicleApp::get_VehicleApp_Instance(void)
     static VehicleApp instance;  // Singleton instance
     return instance;
 }
-
+/**
+ * @brief Control which label to toggle 
+ * 
+ * @param ui 
+ */
 void VehicleApp::Label_Manager(Ui::MainWindow &ui)
 {
     if (Qt_Flags.Qt_Obstacle_Flag_GDB == true) 

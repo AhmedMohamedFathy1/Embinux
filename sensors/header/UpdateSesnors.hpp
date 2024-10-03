@@ -7,6 +7,11 @@
 #include "BatterySensor.hpp"
 #include "FuelSensor.hpp"
 
+
+/**
+ * @brief struct hold value of all sensors 
+ * 
+ */
 typedef struct 
 {
     float SpeedSensor_data ;
@@ -22,14 +27,15 @@ class Update_Sensors
 {
         private:
 
-// proteceted as i want to inherit from this class 
         protected:   
+        // compistion froom all sensors 
             Speed_Sensor & speed_sensor = Speed_Sensor::Get_SpeedSensor_Instance(); 
             Radar_Sensor &radar_sensor = Radar_Sensor::Get_RadarSensor_Instance(); 
             Temperature_Sensor &temperature_sensor= Temperature_Sensor::Get_TemperatureSensor_Instance(); 
             Battery_Sensor &battery_sensor= Battery_Sensor::Get_BatterySensor_Instance(); 
             Fuel_Sensor &fuel_sensor= Fuel_Sensor::Get_FuelSensor_Instance();
 
+            // singleton design
             static Sensors_data_t Sensors_data;
 
         public:

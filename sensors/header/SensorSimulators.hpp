@@ -1,6 +1,11 @@
 #ifndef __SENSORSIMULATORS__H__
 #define __SENSORSIMULATORS__H__
 
+
+/**
+ * @brief enum hold scanrio for switch case 
+ * 
+ */
 enum class ScenarioStates
 {
     None,
@@ -11,6 +16,11 @@ enum class ScenarioStates
     Scenario5
 };
 
+
+/**
+ * @brief struct that hold flags for each scenario which to run and check this in Sesnor simulator file
+ * 
+ */
 struct Scenarios_Flags
 {
   bool Scenario_Speed_Sesnor_Flag_LDB = false;
