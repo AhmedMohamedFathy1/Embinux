@@ -24,7 +24,7 @@ class Simulate_Sensor
 {
     protected: 
     public:     
-      float Simulate_SpeedSensor(int maxSpeed, int holdTime);
+      float Simulate_SpeedSensor(void);
       int Simulate_TemperatureSensor(void);
       float Simulate_BatterySensor(void);
       int Simulate_FuelSensor(void);
@@ -38,7 +38,6 @@ class Simulate_Sensor
       void Scenario_Init_state(void);
 
       static Scenarios_Flags &Get_Scenarios_Flags_Instance(void);
-
 
       float decelerate(float &speed,const int &Deceleration);
 

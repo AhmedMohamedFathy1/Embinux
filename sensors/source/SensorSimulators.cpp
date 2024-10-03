@@ -116,11 +116,10 @@ float Simulate_Sensor::decelerate(float &speed,const int &Deceleration)
 float Vehcile_speed_GF_U32 = 0;  // Initial speed
 
 
-float Simulate_Sensor::Simulate_SpeedSensor(int maxSpeed, int holdTime) 
+float Simulate_Sensor::Simulate_SpeedSensor(void) 
 {
    if(scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB == true)
    {
-        static int counter = holdTime;
         // Set up random number generation
         std::random_device rd;   // Seed source
         std::mt19937 gen(rd());  // Mersenne Twister engine

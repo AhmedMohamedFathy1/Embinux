@@ -110,6 +110,15 @@
     "stop_token": "cpp",
     "fstream": "cpp",
     "iomanip": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "codecvt": "cpp",
+    "condition_variable": "cpp",
+    "cstring": "cpp",
+    "list": "cpp",
+    "map": "cpp",
+    "optional": "cpp",
+    "future": "cpp",
+    "mutex": "cpp",
+    "variant": "cpp"
   }
 }

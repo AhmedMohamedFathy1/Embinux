@@ -34,12 +34,6 @@ void AdaptiveCruiseControl::Speed_Control()
         ACC_conditionsFlags.ACC_Slow_Down_Flag = false;
         ACC_conditionsFlags.ACC_Stopping_Flag = true;
     }
-    // else
-    // {
-    //     ACC_conditionsFlags.ACC_Slow_Down_Flag = false;
-    //     ACC_conditionsFlags.ACC_Stopping_Flag = false;
-    // }
-
 }
 
 

@@ -15,9 +15,9 @@ class Temperature_Sensor : public Sensor<float>, public Simulate_Sensor
        
         float Get_SensorData(void) override; 
 
-        void Set_SensorData(float value) override;
+        void Set_SensorData(void) override;
 
-        static Temperature_Sensor Get_TemperatureSensor_Instance(void); 
+        static Temperature_Sensor &Get_TemperatureSensor_Instance(void); 
         Temperature_Sensor();
 };
 

@@ -8,13 +8,13 @@ float Temperature_Sensor::Get_SensorData(void)
  
 }
 
-void Temperature_Sensor::Set_SensorData(float value)
+void Temperature_Sensor::Set_SensorData(void)
 {
     Temperature_LF_U32_ =  simulate_sensor->Simulate_TemperatureSensor(); // 11 gives numbers from 0 to 10;
 
 }
 
-Temperature_Sensor Temperature_Sensor::Get_TemperatureSensor_Instance(void)
+Temperature_Sensor &Temperature_Sensor::Get_TemperatureSensor_Instance(void)
 {
     static Temperature_Sensor temperatureSensor_Instance;
     return temperatureSensor_Instance ;

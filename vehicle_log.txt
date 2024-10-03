@@ -507,3 +507,169 @@ Timestamp: 2024-10-03 01:34:41
 Vehicle Speed: 0 km/h
 Timestamp: 2024-10-03 01:34:42
 Vehicle Speed: 0 km/h
+Timestamp: 2024-10-03 13:32:10
+***************************  Scenario 1 ***************************
+Timestamp: 2024-10-03 13:32:10
+Vehicle Speed: 9 km/h
+Timestamp: 2024-10-03 13:32:11
+Vehicle Speed: 21 km/h
+Timestamp: 2024-10-03 13:32:12
+Vehicle Speed: 34 km/h
+Timestamp: 2024-10-03 13:32:13
+Vehicle Speed: 35 km/h
+Timestamp: 2024-10-03 13:32:14
+Vehicle Speed: 45 km/h
+Timestamp: 2024-10-03 13:32:15
+Vehicle Speed: 47 km/h
+Timestamp: 2024-10-03 13:32:16
+Vehicle Speed: 62 km/h
+Timestamp: 2024-10-03 13:33:38
+***************************  Scenario 1 ***************************
+Timestamp: 2024-10-03 13:33:38
+Vehicle Speed: 8 km/h
+Timestamp: 2024-10-03 13:33:39
+Vehicle Speed: 12 km/h
+Timestamp: 2024-10-03 13:33:40
+Vehicle Speed: 19 km/h
+Timestamp: 2024-10-03 13:33:41
+Vehicle Speed: 30 km/h
+Timestamp: 2024-10-03 13:33:42
+Vehicle Speed: 34 km/h
+Timestamp: 2024-10-03 13:33:43
+Vehicle Speed: 44 km/h
+Timestamp: 2024-10-03 13:33:44
+Vehicle Speed: 49 km/h
+Timestamp: 2024-10-03 13:33:45
+Vehicle Speed: 61 km/h
+Timestamp: 2024-10-03 13:33:46
+Vehicle Speed: 75 km/h
+Timestamp: 2024-10-03 13:33:47
+Vehicle Speed: 86 km/h
+Timestamp: 2024-10-03 13:33:47
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:47
+Sensor data : 69.217957 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:48
+Vehicle Speed: 86 km/h
+Timestamp: 2024-10-03 13:33:48
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:48
+Sensor data : 65.560211 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:49
+Vehicle Speed: 86 km/h
+Timestamp: 2024-10-03 13:33:49
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:49
+Sensor data : 62.170895 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:50
+Vehicle Speed: 86 km/h
+Timestamp: 2024-10-03 13:33:50
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:50
+Sensor data : 59.532799 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:51
+Vehicle Speed: 86 km/h
+Timestamp: 2024-10-03 13:33:51
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:51
+Sensor data : 55.353546 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:52
+Vehicle Speed: 86 km/h
+Timestamp: 2024-10-03 13:33:52
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:52
+Sensor data : 51.444252 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:53
+Decelerating...
+Timestamp: 2024-10-03 13:33:53
+Vehicle Speed: 79 km/h
+Timestamp: 2024-10-03 13:33:53
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:53
+Sensor data : 47.902615 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:54
+Decelerating...
+Timestamp: 2024-10-03 13:33:54
+Vehicle Speed: 72 km/h
+Timestamp: 2024-10-03 13:33:54
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:54
+Sensor data : 44.339493 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:55
+Decelerating...
+Timestamp: 2024-10-03 13:33:55
+Vehicle Speed: 65 km/h
+Timestamp: 2024-10-03 13:33:55
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:55
+Sensor data : 39.641273 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 13:33:56
+Decelerating...
+Timestamp: 2024-10-03 13:33:56
+Vehicle Speed: 58 km/h
+Timestamp: 2024-10-03 13:33:56
+Obstacle Found 
+Timestamp: 2024-10-03 13:33:56
+Sensor data : 34.715889 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 14:19:26
+***************************  Scenario 1 ***************************
+Timestamp: 2024-10-03 14:19:26
+Vehicle Speed: 1 km/h
+Timestamp: 2024-10-03 14:19:27
+Vehicle Speed: 3 km/h
+Timestamp: 2024-10-03 14:19:28
+Vehicle Speed: 5 km/h
+Timestamp: 2024-10-03 14:19:29
+Vehicle Speed: 11 km/h
+Timestamp: 2024-10-03 14:19:30
+Vehicle Speed: 12 km/h
+Timestamp: 2024-10-03 14:19:31
+Vehicle Speed: 23 km/h
+Timestamp: 2024-10-03 14:19:32
+Vehicle Speed: 33 km/h
+Timestamp: 2024-10-03 14:19:33
+Vehicle Speed: 46 km/h
+Timestamp: 2024-10-03 14:19:34
+Vehicle Speed: 55 km/h
+Timestamp: 2024-10-03 14:19:35
+Vehicle Speed: 62 km/h
+Timestamp: 2024-10-03 14:19:36
+Vehicle Speed: 65 km/h
+Timestamp: 2024-10-03 14:19:37
+Vehicle Speed: 77 km/h
+Timestamp: 2024-10-03 14:19:37
+Obstacle Found 
+Timestamp: 2024-10-03 14:19:37
+Sensor data : 58.656769 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 14:19:38
+Vehicle Speed: 77 km/h
+Timestamp: 2024-10-03 14:19:38
+Obstacle Found 
+Timestamp: 2024-10-03 14:19:38
+Sensor data : 53.917248 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 14:19:39
+Decelerating...
+Timestamp: 2024-10-03 14:19:39
+Vehicle Speed: 70 km/h
+Timestamp: 2024-10-03 14:19:39
+Obstacle Found 
+Timestamp: 2024-10-03 14:19:39
+Sensor data : 51.207367 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 14:19:40
+Decelerating...
+Timestamp: 2024-10-03 14:19:40
+Vehicle Speed: 63 km/h
+Timestamp: 2024-10-03 14:19:40
+Obstacle Found 
+Timestamp: 2024-10-03 14:19:40
+Sensor data : 48.676239 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 14:19:41
+Decelerating...
+Timestamp: 2024-10-03 14:19:41
+Vehicle Speed: 56 km/h
+Timestamp: 2024-10-03 14:19:41
+Sensor data : 47.285225 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m
+Timestamp: 2024-10-03 14:19:42
+Vehicle Speed: 50 km/h
+Timestamp: 2024-10-03 14:19:42
+Sensor data : 45.216198 m , DISTANCE_TO_SLOW_DOWN:55 , DISTANCE_TO_STOP: 35 m

@@ -17,9 +17,9 @@ float Speed_Sensor::Get_SensorData(void)
 }
 
 
-void Speed_Sensor::Set_SensorData(float value)
+void Speed_Sensor::Set_SensorData(void)
 {
-    Vehicle_Speed_LF_U32_ = simulate_sensor.Simulate_SpeedSensor(120,5); 
+    Vehicle_Speed_LF_U32_ = simulate_sensor.Simulate_SpeedSensor(); 
 }
 
 
