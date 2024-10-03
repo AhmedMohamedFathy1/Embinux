@@ -7,6 +7,9 @@
 #include "SpeedSensor.hpp"
 #include "AdpativeCruiseControl.hpp"
 #include "Logger.hpp"
+#include "QtApp.hpp"
+
+QtFlags &SS_Qt_Flags = VehicleApp::Get_Qt_FlagInstance();
 
 
 Diagnostics diagnostics; 
@@ -144,15 +147,55 @@ float Simulate_Sensor::Simulate_SpeedSensor(void)
             {
                 Vehcile_speed_GF_U32 = VEHICLE_MAX_SPEED;  // Cap at max speed
             }
-           // speed_Sensor.Set_SensorData(Vehcile_speed_GF_U32);
         }
         else
         {
 
         }
    } 
-   return Vehcile_speed_GF_U32; // TODO: we need to remove or remove Set_SensorData() 
+   return Vehcile_speed_GF_U32; 
+}
 
+float Simulate_Sensor::Simulate_RadarSensor(void) 
+{        
+    static float RadarDistance = 100;  // Initial Distance in m 
+
+    if(scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB == true)
+    {
+        static int RadarCounter = 3;
+        // Set up random number generation
+        std::random_device rd;   // Seed source
+        std::mt19937 gen(rd());  // Mersenne Twister engine
+
+        std::uniform_real_distribution<float> RadarIncreaseDist(1, 5);
+        std::uniform_real_distribution<float> RadarDecreaseDist(1, 5);
+
+        // Radar increase
+        if (RadarDistance <= MAX_RADAR_DISTANCE) 
+        {
+            RadarDistance -= RadarDecreaseDist(gen);  // Decrease Distance randomly
+            if (RadarDistance < MIN_RADAR_DISTANCE) 
+            {
+                RadarDistance = MIN_RADAR_DISTANCE;  
+            }
+        }
+        // Hold at max RadarDistance
+        else if(RadarCounter>0)
+        {
+            RadarCounter--;
+        }
+
+        // Radar Distance decrease
+        else if (RadarDistance >= MIN_RADAR_DISTANCE)
+        {
+            RadarDistance += RadarIncreaseDist(gen);  // Decrease speed randomly
+            if (RadarDistance  > MAX_RADAR_DISTANCE) 
+            {
+                RadarDistance = MAX_RADAR_DISTANCE;  // Ensure speed doesn't go below 0
+            }
+        }
+    }
+    return RadarDistance;
 }
 
 
@@ -214,7 +257,7 @@ float Simulate_Sensor::Simulate_BatterySensor(void)
         if(counter == 0)
         {
             InitFlag_GDB = false;
-            State = ScenarioStates::None;  
+            State = ScenarioStates::Scenario5;  
         }
     }
     return Battery_Voltage;
@@ -263,49 +306,6 @@ int Simulate_Sensor::Simulate_FuelSensor(void)
 
 }
 
-float Simulate_Sensor::Simulate_RadarSensor(void) 
-{        
-    static float RadarDistance = 100;  // Initial Distance in m 
-
-    if(scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB == true)
-    {
-        static int RadarCounter = 3;
-        // Set up random number generation
-        std::random_device rd;   // Seed source
-        std::mt19937 gen(rd());  // Mersenne Twister engine
-
-        std::uniform_real_distribution<float> RadarIncreaseDist(1, 5);
-        std::uniform_real_distribution<float> RadarDecreaseDist(1, 5);
-
-        // Radar increase
-        if (RadarDistance <= MAX_RADAR_DISTANCE) 
-        {
-            RadarDistance -= RadarDecreaseDist(gen);  // Decrease Distance randomly
-            if (RadarDistance < MIN_RADAR_DISTANCE) 
-            {
-                RadarDistance = MIN_RADAR_DISTANCE;  
-            }
-        }
-        // Hold at max RadarDistance
-        else if(RadarCounter>0)
-        {
-            RadarCounter--;
-        }
-
-        // Radar Distance decrease
-        else if (RadarDistance >= MIN_RADAR_DISTANCE)
-        {
-            RadarDistance += RadarIncreaseDist(gen);  // Decrease speed randomly
-            if (RadarDistance  > MAX_RADAR_DISTANCE) 
-            {
-                RadarDistance = MAX_RADAR_DISTANCE;  // Ensure speed doesn't go below 0
-            }
-        }
-    }
-    return RadarDistance;
-
-}
-
 // Scenario 1 : Move in const speed and obstacle found (1 - speed down  - 2 - Stop)
 void Simulate_Sensor::Simulate_Scenario_1() 
 {
@@ -351,6 +351,16 @@ void Simulate_Sensor::Simulate_Scenario_4(void)
     scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
 }
 
+void Simulate_Sensor::Simulate_Scenario_5(void)
+{
+    scenarios_Flags.Scenario_Fuel_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = false;
+    scenarios_Flags.Scenario_Battery_Sesnor_Flag_LDB = false;
+
+    scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = true;
+}
+
 void Simulate_Sensor::Scenario_Init_state(void)
 {
     // std::cout << "check system Init " << std::endl;
@@ -381,7 +391,11 @@ void Simulate_Sensor::Scenario_Init_state(void)
 
             std::cout << " ***************************  Scenario 4 ***************************" << std::endl;
             break;
+        case ScenarioStates::Scenario5:
+            SS_logger.logData("***************************  Scenario 5 ***************************");
 
+            std::cout << " ***************************  Scenario 5 ***************************" << std::endl;
+            break;
         default:
             SS_logger.logData(" ***************************  Simulation Finished ***************************");
 
@@ -401,6 +415,13 @@ void Simulate_Sensor::Scenario_Init_state(void)
         scenarios_Flags.Scenario_Radar_Sesnor_Flag_LDB = false;
         scenarios_Flags.Scenario_Temperature_Sesnor_Flag_LDB = false;
         scenarios_Flags.Scenario_Speed_Sesnor_Flag_LDB = false;
+        
+        SS_Qt_Flags.Qt_Obstacle_Flag_GDB = false;
+        SS_Qt_Flags.Qt_Temperature_Flag_GDB = false;
+        SS_Qt_Flags.Qt_Fuel_Flag_GDB = false;
+        SS_Qt_Flags.Qt_Battery_Flag_GDB = false;
+        SS_Qt_Flags.Qt_speed_Flag_GDB = false;
+
         InitFlag_GDB = true;
     }
 }
@@ -427,6 +448,10 @@ void Simulate_Sensor::Scenario_Handler(void)
 
     case ScenarioStates::Scenario4:
         Simulate_Sensor::Simulate_Scenario_4();
+        break;
+
+    case ScenarioStates::Scenario5:
+        Simulate_Sensor::Simulate_Scenario_5();
         break;
 
     default:

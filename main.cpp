@@ -11,17 +11,11 @@
 #include "AdpativeCruiseControl.hpp"
 #include "SensorSimulators.hpp"
 
+
+#include "QtApp.hpp"
+
 using namespace std;
 
-// Function to update the QLabel with vehicle speed
-void updateLabel(Ui::MainWindow &ui,int speed) {
-    // Replace with actual sensor data or logic to get the vehicle speed
-  // int speed = rand() % 100; // Example: random speed value between 0 and 99
-    QString labelText = QString("Vehicle Speed: %1 Km/h").arg(speed);
-    
-    // Update QLabel with new speed value
-    ui.label->setText(labelText);
-}
 
 int main(int argc, char *argv[]) 
 {
@@ -36,13 +30,18 @@ int main(int argc, char *argv[])
     Ui::MainWindow ui;  
     ui.setupUi(&window);  // Set up the UI for the window
 
+    VehicleApp &mian_vehicleApp = VehicleApp::get_VehicleApp_Instance();
+
     // Create a timer to update the QLabel
     QTimer *timer = new QTimer(&window);
     QObject::connect(timer, &QTimer::timeout, [&]() {
         simulate_Sensor.Scenario_Handler();
         diagnostics.Run_Diagnostics();
         ACC.AdpativeCruiseControl_Manager();
-        updateLabel(ui,static_cast<int>(Sensors_data.SpeedSensor_data)); // Call the function to update the label
+
+        mian_vehicleApp.updateLabel(ui,static_cast<int>(Sensors_data.SpeedSensor_data)); // Call the function to update the label
+        mian_vehicleApp.Label_Manager(ui);
+      //  mian_vehicleApp.checkSpeed(ui);
     });
     timer->start(1000); // Update every 1000 ms (1 second)
 

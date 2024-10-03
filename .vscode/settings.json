@@ -119,6 +119,7 @@
     "optional": "cpp",
     "future": "cpp",
     "mutex": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "*.moc": "cpp"
   }
 }

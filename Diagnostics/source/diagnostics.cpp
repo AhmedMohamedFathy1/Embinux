@@ -3,12 +3,15 @@
 #include "diagnostics.hpp"
 #include "SensorSimulators.hpp"
 #include "Logger.hpp"
-
+#include "QtApp.hpp"
 
 
 Scenarios_Flags &diagnostics_Scenarios_Flags = Simulate_Sensor::Get_Scenarios_Flags_Instance();
 
-#define MAX_ALLOWED_SPEED 180
+
+QtFlags &Diagonstics_Qt_Flags = VehicleApp::Get_Qt_FlagInstance();
+
+#define MAX_ALLOWED_SPEED 120
 
 // #define MINIUM_DISTANCE_TO_SPEED_DOWN 
 
@@ -34,8 +37,6 @@ Scenarios_Flags &diagnostics_Scenarios_Flags = Simulate_Sensor::Get_Scenarios_Fl
 #define DISTACNE_TO_BRAKE  50  //Max Fuel Tank capacity 
 #define VEHICLE_BRAKING_DECELERATION  7 // assume Vehicle Braking deceleration is 7m/s^2
 
-
-
 Diagnostics_Flags Diagnostics::diagnostics_Flags;
 
 // Initialize the static members of Diagnostics_Flags
@@ -46,8 +47,9 @@ bool Diagnostics_Flags::Vehcile_Stop_Speed_Up_Is_High_GDB = false;
 
 Diagnostics_Flags  & FlagState = Diagnostics::Get_FlagsState();
 
-
 VehicleLogger& Diagnosticslogger = VehicleLogger::Logger_GetInstance("vehicle_log.txt");
+
+
 
 /**
  * @brief Check if speed increase over speed limit  
@@ -57,10 +59,14 @@ VehicleLogger& Diagnosticslogger = VehicleLogger::Logger_GetInstance("vehicle_lo
 
 void Diagnostics::ExcesiveSpeed_Check(void)
 {
+    VehicleApp & vehicleApp = VehicleApp::get_VehicleApp_Instance();
+
     if(Sensors_data.SpeedSensor_data > MAX_ALLOWED_SPEED)
     {
+        Diagonstics_Qt_Flags.Qt_speed_Flag_GDB = true;
         Diagnosticslogger.logData("Max Speed is :" + MAX_ALLOWED_SPEED + std::to_string(static_cast<int>(Sensors_data.SpeedSensor_data)) + " km/h");
         std::cout << "Max Speed is :" << MAX_ALLOWED_SPEED << " km/h" << "\nCar Current Speed: " << static_cast<int>(Sensors_data.SpeedSensor_data) << " km/h"<< std::endl;
+        
     }
     else
     {
@@ -83,8 +89,9 @@ void Diagnostics::RadarDistance_Check(void)
             //   Diagnostics_Flags::ObstacleFound_Is_High_GDB = true;
             FlagState.Vehcile_Stop_Speed_Up_Is_High_GDB = true; // flag to stop vehicle to speed up
             FlagState.ObstacleFound_Is_High_GDB = true;
-            Diagnosticslogger.logData("Obstacle Found ");
 
+            Diagnosticslogger.logData("Obstacle Found ");            
+            Diagonstics_Qt_Flags.Qt_Obstacle_Flag_GDB = true;
             std::cout << "Obstacle Found " << std::endl;
         }
     }
@@ -99,6 +106,7 @@ void Diagnostics::Temperature_Check(void)
             FlagState.Vehcile_Stop_Speed_Up_Is_High_GDB = true; // flag to stop vehicle to speed up
             FlagState.Motor_Temperature_Is_High_GDB = true;
             Diagnosticslogger.logData("Car is Overhrating \nMotor Temperature is: "+ std::to_string(Sensors_data.TemperatureSensor_data)+" °C:");
+            Diagonstics_Qt_Flags.Qt_Temperature_Flag_GDB = true;
 
             std::cout << "Car is Overhrating " << "\nMotor Temperature is: " << Sensors_data.TemperatureSensor_data  << " °C:" << std::endl;
         }
@@ -133,7 +141,7 @@ void Diagnostics::Battery_Check(void)
         else if(Sensors_data.BatterySensor_data < BATTERY_DEAD_CHARGED)
         {
             Diagnosticslogger.logData("Battery is Dead ");
-
+            Diagonstics_Qt_Flags.Qt_Battery_Flag_GDB = true;
             std::cout <<"Battery is Dead " << std::endl;
         }
     }
@@ -152,7 +160,8 @@ void Diagnostics::LowFuel_Check(void)
         if(Sensors_data.FuelCapacity < MIN_FUEL_CAPACITY)
         {
             Diagnosticslogger.logData("Low Fuel ");
-
+            Diagonstics_Qt_Flags.Qt_Fuel_Flag_GDB = true;
+            
             std::cout <<"Low Fuel" << std::endl;
         }
     }

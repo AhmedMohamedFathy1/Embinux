@@ -23,7 +23,11 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QLabel *label;
-    QLabel *label_2;
+    QLabel *obstacle;
+    QLabel *OverHeat;
+    QLabel *Fuel;
+    QLabel *LowBattery;
+    QLabel *Speed;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -35,14 +39,30 @@ public:
         centralwidget->setObjectName("centralwidget");
         label = new QLabel(centralwidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(10, 20, 361, 41));
+        label->setGeometry(QRect(20, 20, 361, 41));
         QFont font;
         font.setPointSize(20);
         label->setFont(font);
-        label_2 = new QLabel(centralwidget);
-        label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(400, 20, 121, 41));
-        label_2->setFont(font);
+        obstacle = new QLabel(centralwidget);
+        obstacle->setObjectName("obstacle");
+        obstacle->setGeometry(QRect(20, 140, 250, 40));
+        obstacle->setFont(font);
+        OverHeat = new QLabel(centralwidget);
+        OverHeat->setObjectName("OverHeat");
+        OverHeat->setGeometry(QRect(20, 200, 250, 40));
+        OverHeat->setFont(font);
+        Fuel = new QLabel(centralwidget);
+        Fuel->setObjectName("Fuel");
+        Fuel->setGeometry(QRect(20, 310, 250, 40));
+        Fuel->setFont(font);
+        LowBattery = new QLabel(centralwidget);
+        LowBattery->setObjectName("LowBattery");
+        LowBattery->setGeometry(QRect(20, 250, 250, 40));
+        LowBattery->setFont(font);
+        Speed = new QLabel(centralwidget);
+        Speed->setObjectName("Speed");
+        Speed->setGeometry(QRect(20, 80, 250, 40));
+        Speed->setFont(font);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -58,7 +78,11 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Vehcile Speed ", nullptr));
-        label_2->setText(QCoreApplication::translate("MainWindow", "Km/h", nullptr));
+        obstacle->setText(QString());
+        OverHeat->setText(QString());
+        Fuel->setText(QString());
+        LowBattery->setText(QString());
+        Speed->setText(QString());
     } // retranslateUi
 
 };
