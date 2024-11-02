@@ -36,7 +36,6 @@ void Wifi::Wifi_ShowStatus(void)
 void Wifi::Wifi::Wifi_SaveNetwork(const std::string& SSID_WifiName, const std::string &SSID_Password)
 {
     Wifi::wifiCredentials[SSID_WifiName] = SSID_Password;
-    std::cout << "Password for " << SSID_WifiName << " is " << wifiCredentials[SSID_WifiName] << std::endl;
 }
 
 std::string password;
@@ -72,7 +71,7 @@ void Wifi::connectToWifi(std::string_view WifiName, std::string_view Password)
     if(status == 0)
     {
         Wifi::Wifi_SaveNetwork(std::string(WifiName),std::string(Password));
-        fileHandler.SaveFile(Wifi::wifiCredentials,"wifiCredentialsFile");
+        fileHandler.SaveFile(Wifi::wifiCredentials,"wifiCredentialsFile.txt");
     }
     else
     {
