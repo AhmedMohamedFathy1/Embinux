@@ -1,13 +1,14 @@
 #include <iostream>
 #include "wifi.hpp"
-
+#include "ControlManager.hpp"
 using namespace  std;
+
+
 int main()
 {
+    Wifi wifi;
+    
+    wifi.Wifi_ConnectToNetwork();
 
-    Wifi_ShowStatus();
-    Wifi_TurnOff();
-    Wifi_ShowStatus();
-    Wifi_TurnOn();
-    // Wifi_ShowStatus();
+    //Main_StateMachine();    
 }
